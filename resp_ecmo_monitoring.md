@@ -6,9 +6,8 @@ title: Respiratory & ECMO Monitoring (PSoC 5 + Raspberry Pi)
 
 ## TL;DR
 I developed firmware and test infrastructure for respiratory/ECMO monitoring prototypes using **PSoC 5 + Raspberry Pi**, focusing on **deterministic sampling**, **low‑latency data streaming**, and **benchtop validation** against reference instrumentation (e.g., **TSI 4040**). I also integrated and debugged a **Transonic OEM flow sensor** over UART to support reliable data streaming.
-
-> **Notes / demo:** (add link if shareable)  
-> **Code:** (private if needed)
+ 
+> **Demo and Code:** Cannot share due to confidentiality
 
 ---
 
@@ -17,10 +16,6 @@ I developed firmware and test infrastructure for respiratory/ECMO monitoring pro
 - **Companion compute:** Raspberry Pi (embedded Linux)
 - **Comms:** USBUART, UART
 - **Validation:** compared outputs vs reference instrument (TSI 4040) across multiple operating points
-
-**Suggested images**
-- `assets/resp_ecmo/block_diagram.png`
-- `assets/resp_ecmo/testbench.jpg`
 
 ---
 
