@@ -1,0 +1,103 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:134.0) Gecko/20100101 Firefox/134.0" version="26.0.11">
+  <diagram name="Page-1" id="bfe91b75-5d2c-26a0-9c1d-138518896778">
+    <mxGraphModel grid="1" page="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-9" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="130" width="150" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-2" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="200" width="170" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-1" value="Base Station" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-3" value="Substation 1&lt;div&gt;(Camera)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="150" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-4" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="1jWBu2ZG_uWOFELobdAA-1" target="1jWBu2ZG_uWOFELobdAA-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="230" as="sourcePoint" />
+            <mxPoint x="590" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-5" value="Substation 2&lt;div&gt;(Medication Adherence)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="640" y="260" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-6" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" target="1jWBu2ZG_uWOFELobdAA-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="540" y="280" as="sourcePoint" />
+            <mxPoint x="640" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-7" value="Substation 3&lt;div&gt;(Ambient Conditions)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="230" y="220" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-8" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="1jWBu2ZG_uWOFELobdAA-7" target="1jWBu2ZG_uWOFELobdAA-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="310" as="sourcePoint" />
+            <mxPoint x="460" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-11" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="480" y="220" as="sourcePoint" />
+            <mxPoint x="480" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-12" value="Cloud" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-13" value="" style="rounded=1;absoluteArcSize=1;html=1;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="610" y="510" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-14" value="&lt;div&gt;MCU&lt;/div&gt;&lt;div&gt;Wireless&lt;/div&gt;&lt;div&gt;Battery&lt;/div&gt;&lt;div&gt;Power&lt;br&gt;&lt;/div&gt;" style="html=1;shape=mxgraph.er.anchor;whiteSpace=wrap;" vertex="1" parent="1jWBu2ZG_uWOFELobdAA-13">
+          <mxGeometry width="70" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-15" value="Sensors" style="rounded=1;absoluteArcSize=1;html=1;arcSize=10;whiteSpace=wrap;points=[];strokeColor=inherit;fillColor=inherit;" vertex="1" parent="1jWBu2ZG_uWOFELobdAA-13">
+          <mxGeometry x="70" y="5" width="62.99999999999999" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-16" value="Substation Structure" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="610" y="480" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-30" value="Base Station" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="460" width="160" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="1jWBu2ZG_uWOFELobdAA-31" value="&lt;div&gt;MPU&lt;/div&gt;&lt;div&gt;Wireless&lt;/div&gt;&lt;div&gt;Power&lt;/div&gt;&lt;div&gt;Cloud Interface&lt;/div&gt;&lt;div&gt;UX (Display, Ambient LED)&lt;/div&gt;&lt;div&gt;Substation Stack for wired &lt;br&gt;&lt;/div&gt;&lt;div&gt;connections&lt;br&gt;&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" vertex="1" parent="1jWBu2ZG_uWOFELobdAA-30">
+          <mxGeometry y="50" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="kyqrQ1eL0ARZYaGmxcLj-1" value="Bluetooth" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="350" y="220" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kyqrQ1eL0ARZYaGmxcLj-2" value="Bluetooth" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="560" y="290" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kyqrQ1eL0ARZYaGmxcLj-3" value="Bluetooth" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="560" y="210" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kyqrQ1eL0ARZYaGmxcLj-4" value="&lt;div&gt;Wi-Fi&lt;/div&gt;&lt;div&gt;With MQTT Protocol &lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="390" y="170" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-3" value="Substation 4&lt;br&gt;&lt;div&gt;(Camera)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="225" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-4" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="kLPqkJIdKCrFCEdFN2iL-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="320" y="320" as="sourcePoint" />
+            <mxPoint x="420" y="280" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-5" value="Bluetooth" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="300" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-6" value="Room A" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="200" y="170" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="kLPqkJIdKCrFCEdFN2iL-10" value="Room B" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="605" y="100" width="70" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

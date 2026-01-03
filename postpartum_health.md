@@ -5,50 +5,94 @@ title: Postpartum Health Air‑Quality Node (Raspberry Pi → Pico 2 W + AWS)
 # IoT Health Monitoring — Postpartum Health Air‑Quality Node (Raspberry Pi 5 → Pico 2 W + AWS)
 
 ## TL;DR
-I designed and implemented an embedded air‑quality sensing node to support a **postpartum home‑recovery** monitoring scenario. The system connects a **Raspberry Pi 5** to a **Pico 2 W** for sensor acquisition and wireless communication, then logs data to the cloud using **AWS DynamoDB** for later analysis/visualization.
+I built an environmental sensing node for a **home health monitoring** concept (postpartum recovery scenario), focusing on **air-quality sensing + reliable data logging** rather than clinical claims. The system uses a **Pico 2 W** substation for sensor acquisition and a **Raspberry Pi 5** gateway that forwards readings to **AWS DynamoDB** for storage and downstream visualization.
 
-> **Demo/dashboard:** (add link if you have one)  
-> **Code:** (add repo link or “available on request”)
-
----
-
-## What problem it addresses
-Home recovery can benefit from passive monitoring of environmental factors (e.g., particulate matter, CO₂) that affect comfort and respiratory health. This project focused on building a reliable sensing + logging pipeline.
+> **Demo / dashboard:** (add link if you have one)  
+> **Code:** (add link or “available upon request”)
 
 ---
 
 ## System architecture
-- **Edge compute:** Raspberry Pi 5
-- **MCU node:** Pico 2 W (Wi‑Fi)
-- **Sensors:** particulate matter + CO₂ (add part numbers)
-- **Cloud:** AWS DynamoDB for time‑series logging (and optional downstream analysis)
+The overall project architecture supports multiple “substations” (e.g., air-quality, medication, camera), connected to a base station. This page focuses on the **air-quality subsystem**.
 
-**Suggested images**
-- `assets/postpartum/block_diagram.png`
-- `assets/postpartum/device.jpg`
-- `assets/postpartum/sample_plot.png`
+![Architecture overview](assets/postpartum/architecture_overview.png)
 
----
-
-## Implementation details (fill in)
-- Sensor sampling rate: **__ Hz**
-- Data packet format: **__**
-- Wireless link: **__** (Wi‑Fi protocol / message format)
-- Cloud schema (DynamoDB): partition key **__**, sort key **__**, attributes **__**
-
-**Reliability/latency (add one)**
-- Uptime over a multi‑hour run: **__%**
-- End-to-end ingestion latency: **__ ms** (edge → cloud)
-- Data loss rate: **__%**
+### Key decisions
+- Use a small MCU node (**Pico 2 W**) for sensing and wireless networking.
+- Use a gateway (**Raspberry Pi 5**) for aggregation + buffering + cloud write.
+- Use **MQTT** for lightweight pub/sub messaging between nodes and gateway.
 
 ---
 
-## Team / leadership
-- Served as **team lead** for phase 3: coordinated integration, communicated updates, and tracked milestones.
+## Hardware & sensors (air-quality substation)
+**Gateway / base station**
+- **Raspberry Pi 5 (16GB)**
+
+**Substation**
+- **Raspberry Pi Pico 2 W**
+
+**Sensors**
+- **Particulate matter:** **PMSA003I** air quality sensor (PM2.5/PM10 sensor family)
+- **Gas/VOC proxy:** **MQ-135** (broad gas sensor; useful as a low-cost proxy / trend signal)
+
+> Note: we also evaluated alternative environmental sensor platforms (e.g., Enviro+), and iterated across versions during the project.
 
 ---
 
-## Why it’s relevant to neurotech/medical devices
-- Real-time sensing + robust data collection
-- Edge–cloud pipelines for health monitoring
-- Practical engineering tradeoffs (latency, reliability, calibration)
+## Wireless + messaging protocol
+We ran a lightweight trade study across common protocols.
+
+![Wireless protocol trade study](assets/postpartum/wireless_protocol_matrix.png)
+
+**Chosen approach:** Wi‑Fi + MQTT for simplicity and adequate bandwidth for multi-sensor telemetry.
+
+---
+
+## Cloud logging (AWS DynamoDB)
+The gateway forwards readings into DynamoDB as time-series records.
+- Designed a schema with a **node identifier** and **timestamp** as primary indexing keys (typical DynamoDB time-series pattern).
+- Gateway buffers locally to reduce data loss during connectivity interruptions.
+
+*(If you tell me your exact DynamoDB key names, I can write the schema precisely.)*
+
+---
+
+## Engineering work I contributed
+- End-to-end pipeline: sensor acquisition → packetization → wireless publish → gateway ingest → cloud write.
+- Reliability-oriented design: buffering, reconnect logic, and structured test runs.
+- Integration support: interface agreements, test planning, and documentation updates.
+
+---
+
+## Design + implementation artifacts (included)
+These are included under `assets/postpartum/` so readers can inspect the underlying engineering work.
+
+### Diagrams (editable draw.io)
+- `assets/postpartum/topology_mqtt.drawio` (base station + substations topology with MQTT)
+- `assets/postpartum/pico_wiring_pm_mq135.drawio` (Pico ↔ PMSA003I ↔ MQ-135 wiring)
+- `assets/postpartum/air_conditions_enviroplus.drawio` (earlier environmental subsystem version)
+
+### Procurement list (excerpt)
+![Procurement list](assets/postpartum/procurement_list.png)
+
+### Software libraries & drivers (excerpt)
+![Software libraries](assets/postpartum/software_libraries.png)
+
+### Air-quality sensor trade study (excerpt)
+![Air-quality sensor trade study](assets/postpartum/air_quality_sensor_matrix.png)
+
+Raw spreadsheets:
+- `assets/postpartum/design_matrices.xlsx`
+- `assets/postpartum/software_libraries.xlsx`
+- `assets/postpartum/procurement_list.xlsx`
+
+---
+
+## Next steps
+- If true CO₂ accuracy is required, replace proxy sensing with an NDIR CO₂ sensor.
+- Add automated calibration checks and periodic self-tests.
+- Add dashboards for trend/threshold alerts (with appropriate disclaimers).
+
+---
+
+_Last updated: 2026-01-03_
