@@ -4,11 +4,11 @@ title: Tianyi He — Portfolio
 
 # Tianyi He — Project Portfolio
 
-Projects referenced on my resume (**excluding the EEG RC car project**). Each page is written to be safe for public sharing; code/datasets may be private where appropriate.
+Projects referenced on my resume. 
 
 - **Email:** hetianyi74@gmail.com  
 - **LinkedIn:** https://linkedin.com/in/tianyi-he-144809217  
-- **GitHub:** (add your link)
+- **GitHub:** https://github.com/TianyiHe74
 
 ---
 
@@ -38,12 +38,5 @@ Projects referenced on my resume (**excluding the EEG RC car project**). Each pa
 **Focus:** peripheral drivers + RTOS integration + hardware bring-up in the lab.  
 **Stack:** STM32, C, FreeRTOS, EXTI, timers/PWM, UART, I²C, ADC; PCB bring-up with lab instruments.  
 - [Project page](stm32_freertos.html)
-
----
-
-## How to host this on GitHub Pages
-1. Create a GitHub repo (e.g., `portfolio`) and upload these files to the repo root.
-2. Repo **Settings → Pages**: deploy from `main` branch, `/ (root)`.
-3. Your site will appear at `https://<username>.github.io/<repo>/`.
 
 _Last updated: 2026-01-03_
