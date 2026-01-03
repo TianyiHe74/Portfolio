@@ -1,4 +1,4 @@
-# Portfolio - Tianyi He
+# Tianyi He
 CMU ECE (MS & BS) | Embedded systems | Real-time sensing + on-device ML
 
 - Resume: (link)
