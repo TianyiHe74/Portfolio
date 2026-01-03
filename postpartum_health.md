@@ -7,8 +7,8 @@ title: Postpartum Health Air‑Quality Node (Raspberry Pi → Pico 2 W + AWS)
 ## TL;DR
 I built an environmental sensing node for a **home health monitoring** concept (postpartum recovery scenario), focusing on **air-quality sensing + reliable data logging** rather than clinical claims. The system uses a **Pico 2 W** substation for sensor acquisition and a **Raspberry Pi 5** gateway that forwards readings to **AWS DynamoDB** for storage and downstream visualization.
 
-> **Demo / dashboard:** (add link if you have one)  
-> **Code:** (add link or “available upon request”)
+> **Demo / dashboard:** 
+> **Code:** https://github.com/CMU-RPCS-2025/Environmental_HW_FW
 
 ---
 
