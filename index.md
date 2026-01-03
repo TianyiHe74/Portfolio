@@ -29,12 +29,7 @@ Projects referenced on my resume.
 **Stack:** Raspberry Pi 5, Pico 2 W, PM/CO₂ sensors, Wi‑Fi, AWS DynamoDB.  
 - [Project page](postpartum_health.html)
 
-### 4) Embedded Real‑Time Systems — Embedded Linux & Real‑Time Scheduling (Raspberry Pi)
-**Focus:** kernel/user-space tooling and experiments for real-time task management & tracing.  
-**Stack:** Linux (Raspberry Pi), loadable kernel modules, custom syscalls, trace-cmd/KernelShark.  
-- [Project page](embedded_real_time_systems.html)
-
-### 5) Intro to Embedded Systems — STM32 Bare‑Metal & FreeRTOS + Custom PCB Bring‑Up
+### 4) Intro to Embedded Systems — STM32 Bare‑Metal & FreeRTOS + Custom PCB Bring‑Up
 **Focus:** peripheral drivers + RTOS integration + hardware bring-up in the lab.  
 **Stack:** STM32, C, FreeRTOS, EXTI, timers/PWM, UART, I²C, ADC; PCB bring-up with lab instruments.  
 - [Project page](stm32_freertos.html)
