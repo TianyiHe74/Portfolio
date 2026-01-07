@@ -1,45 +1,54 @@
 ---
-title: STM32 Bare‑Metal & FreeRTOS (Drivers + PCB Bring‑Up)
+title: STM32 Bare‑Metal & FreeRTOS + Custom PCB Bring‑Up
 ---
 
 # Intro to Embedded Systems — STM32 Bare‑Metal & FreeRTOS + Custom PCB Bring‑Up
 
 ## TL;DR
-I built a firmware stack in **C** on **STM32** using both **bare-metal** and **FreeRTOS**, writing drivers for **EXTI, timers/PWM, UART, I²C, and ADC**. I integrated multiple peripherals (keypad, LCD, servo, encoder, DC motor) and performed **custom STM32 PCB bring-up** using lab instruments (bench supply, oscilloscope, DMM, logic analyzer).
+I built a bare-metal + FreeRTOS firmware stack on **STM32**, implemented multiple **peripheral drivers**, and brought up a **custom PCB** using lab instruments (scope/DMM/logic analyzer). The project emphasized reliable real-time behavior and hardware debugging.
 
-> **Demo:** (add link)  
-> **Code:** (add repo link)
-
----
-
-## Hardware & peripherals
-- STM32 MCU (model: __)
-- Peripherals: keypad, LCD, servo, encoder, DC motor
-- Interfaces: UART, I²C, ADC, timers/PWM, EXTI interrupts
-
-**Suggested images**
-- `assets/stm32/pcb.jpg`
-- `assets/stm32/block_diagram.png`
+> **Code:** (add link if public)  
+> **Demo:** (add link if available)
 
 ---
 
-## Firmware details
-- Implemented drivers:
-  - EXTI interrupt handling
-  - Timer/PWM generation and capture
-  - UART and I²C communication
-  - ADC sampling and basic filtering (if applicable)
-- Integrated FreeRTOS:
-  - tasks + queues/semaphores (as applicable)
-  - timing and scheduling structure
+## System overview
+- **MCU:** STM32
+- **RTOS:** FreeRTOS (task scheduling + synchronization)
+- **Peripherals:** EXTI, timers/PWM, UART, I²C, ADC
+- **Hardware:** custom PCB bring-up + wiring/measurement in lab
 
-**Metrics (add one)**
-- Control loop / update rate: **__ Hz**
-- Worst-case ISR latency / jitter: **__**
-- CPU utilization under full load: **__%**
+---
+
+## What I built
+- Driver layer for key peripherals (UART/I²C/ADC/timers/EXTI)
+- FreeRTOS task structure (recommended to list 3–5 tasks):
+  - sensor/task loop
+  - UI/IO task (keypad/LCD)
+  - control task (PWM/servo/motor)
+  - comm/logging task (UART)
+- ISR + task integration (interrupt-safe queues/semaphores)
 
 ---
 
 ## Bring-up & debugging
-- Read schematics, assembled hardware, and debugged bring-up issues using standard lab equipment.
-- Verified power rails, clocking, and peripheral IO; validated signal timing with scope/logic analyzer.
+- Verified power rails and clocks, validated GPIO behavior
+- Used scope/logic analyzer to debug protocol timing and ISR behavior
+- Iterated PCB + firmware together to reach a stable demo
+
+---
+
+## Highlights (fill in numbers if you have them)
+- Control loop rate: **__ Hz**
+- Worst-case ISR latency / jitter: **__**
+- PWM frequency/resolution: **__**
+
+---
+
+## Next steps
+- Add automated hardware tests (loopback, self-test at boot)
+- Improve documentation (pinout, block diagram, bring-up checklist)
+
+---
+
+_Last updated: 2026-01-07_
