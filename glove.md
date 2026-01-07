@@ -9,7 +9,7 @@ I built an ESP32-based wearable that acquires **EMG** plus motion/orientation fe
 
 **Links**
 - **Code:** https://github.com/adwoama/SignLanguageLLM  
-- **Demo:** (add link)
+- **Demo:** 
 
 > **Recommended assets to add to this repo:**  
 > `assets/glove/demo_page_03.png` `demo_page_04.png` `demo_page_05.png` `demo_page_06.png` `demo_page_07.png`  
