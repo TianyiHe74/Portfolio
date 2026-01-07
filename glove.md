@@ -9,7 +9,7 @@ I built an ESP32-based wearable that acquires **EMG** plus motion/orientation fe
 
 **Links**
 - **Code:** https://github.com/adwoama/SignLanguageLLM  
-- **Demo:** (add link)
+- **Demo:** 
 
 > **Recommended assets to add to this repo:**  
 > `assets/glove/demo_page_03.png` `demo_page_04.png` `demo_page_05.png` `demo_page_06.png` `demo_page_07.png`  
@@ -88,9 +88,8 @@ I used Edge Impulse’s ingestion and labeling workflow to build time-series win
 - and an explicit **OTHER** class to reduce false positives.
 
 **Fill these in when convenient**
-- Total labeled windows: **__**
-- #sessions / days collected: **__**
-- Split: **__ train / __ val / __ test**
+- Total labeled examples: **853**
+- Split: **79% train / 21% test**
 
 ---
 
