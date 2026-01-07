@@ -88,9 +88,8 @@ I used Edge Impulse’s ingestion and labeling workflow to build time-series win
 - and an explicit **OTHER** class to reduce false positives.
 
 **Fill these in when convenient**
-- Total labeled windows: **__**
-- #sessions / days collected: **__**
-- Split: **__ train / __ val / __ test**
+- Total labeled examples: **853**
+- Split: **79% train / 21% test**
 
 ---
 
