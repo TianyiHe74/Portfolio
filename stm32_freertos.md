@@ -7,7 +7,7 @@ title: STM32 + FreeRTOS Motor Control (18‑349 Lab 6)
 ## TL;DR
 I implemented a **real-time motor position controller** on an STM32 using **FreeRTOS**, combining a **quadrature encoder ISR**, a **15 ms PID control loop**, and **interactive tuning** (keypad + LCD) to iteratively stabilize performance.
 
-> **Code:** publishable as a GitHub repo (or available upon request)  
+> **Code:** Not public (course submission / sharing restrictions); available upon request.
 > **Demo:** no demo video — the hardware kit was returned at the end of the course, so I can’t re-record the setup. This page includes implementation details and artifacts.
 
 ---

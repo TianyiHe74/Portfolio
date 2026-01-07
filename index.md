@@ -2,7 +2,17 @@
 title: Projects
 ---
 
-# Projects
+# Tianyi He — Embedded Systems, Biosignal ML, Connected Devices
+
+I build real-time embedded systems for sensing + signal processing, with experience in **wearable biosignals (EMG/IMU)**, **medical device prototyping**, and **IoT telemetry (MQTT + AWS)**.
+
+- Email: hetianyi74@gmail.com  
+- LinkedIn: linkedin.com/in/tianyi-he-144809217  
+- GitHub: github.com/tianyi-he (add if you want)
+
+---
+
+## Projects
 
 1) **Assistive Wearable Biosignal ML — EMG Sign‑Language Glove (ESP32)**  
 **Focus:** real-time biosignal acquisition + embedded ML inference for wearable assistive tech.  
@@ -16,10 +26,10 @@ title: Projects
 
 3) **IoT Health Monitoring — Postpartum Health Air‑Quality Node (Raspberry Pi 5 → Pico 2 W + AWS)**  
 **Focus:** sensing + wireless edge node + cloud logging for a home-health monitoring scenario (non-clinical).  
-**Stack:** Raspberry Pi 5, Pico 2 W, PMSA003I (PM), Enviro+ (ambient conditions), Wi‑Fi, MQTT, AWS DynamoDB.  
+**Stack:** Raspberry Pi 5, Pico 2 W, PM/CO₂ sensing, Wi‑Fi, MQTT, AWS DynamoDB.  
 - [Project page](postpartum_health.html)
 
-4) **Intro to Embedded Systems — STM32 + FreeRTOS Motor Control (18‑349 Lab 6)**  
+4) **STM32 + FreeRTOS Motor Control (18‑349 Lab 6)**  
 **Focus:** real-time control loop + encoder ISR + RTOS task structure + interactive tuning (keypad/LCD).  
 **Stack:** STM32 (Cortex‑M), C, FreeRTOS, EXTI (quadrature encoder), PWM timers (motor control), UART, keypad + LCD.  
 - [Project page](stm32_freertos.html)

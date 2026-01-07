@@ -9,12 +9,7 @@ I built an ESP32-based wearable that acquires **EMG** plus motion/orientation fe
 
 **Links**
 - **Code:** https://github.com/adwoama/SignLanguageLLM  
-- **Demo:** 
-
-> **Recommended assets to add to this repo:**  
-> `assets/glove/demo_page_03.png` `demo_page_04.png` `demo_page_05.png` `demo_page_06.png` `demo_page_07.png`  
-> `assets/glove/device.jpg` `assets/glove/block_diagram_v2.png`  
-> *(optional)* `assets/glove/Demo.pdf` `assets/glove/confusion_matrix.png`
+- **Demo:** (add link)
 
 ---
 
@@ -54,10 +49,6 @@ The main technical challenges are **biosignal variability** (session drift, elec
 **Form factor / mechanical**
 - Wearable glove integration; iterative mounting/alignment experiments (e.g., small **N52 magnets** for repeatable placement during prototyping).
 
-**Suggested images**
-- `assets/glove/device.jpg`
-- `assets/glove/block_diagram_v2.png`
-
 ---
 
 ## Firmware pipeline (embedded C)
@@ -81,17 +72,8 @@ The main technical challenges are **biosignal variability** (session drift, elec
 ---
 
 ## Data collection & labeling
-I used Edge Impulse’s ingestion and labeling workflow to build time-series windows per class. Collection emphasizes:
-- consistent electrode placement,
-- repeatable posture and activation patterns,
-- multiple sessions to reduce overfitting,
-- and an explicit **OTHER** class to reduce false positives.
+I used Edge Impulse to ingest and label time-series windows per class across multiple sessions, emphasizing consistent electrode placement and inclusion of an explicit **OTHER** class to reduce false positives.
 
-**Fill these in when convenient**
-- Total labeled examples: **853**
-- Split: **79% train / 21% test**
-
----
 
 ## Model (Edge Impulse)
 **Pipeline:** Data capture & labeling → **Spectral Analysis** → classifier training & evaluation → embedded deployment.
