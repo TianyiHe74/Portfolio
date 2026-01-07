@@ -89,11 +89,4 @@ Raw editable files:
 
 ---
 
-## Next steps
-- If CO₂ is a hard requirement, replace proxy channels with a calibrated NDIR CO₂ sensor and add calibration checks.
-- Add automated self-tests and watchdog timers for long unattended runs.
-- Add a small dashboard view for trend/threshold alerts (with appropriate disclaimers).
-
----
-
 _Last updated: 2026-01-07_
