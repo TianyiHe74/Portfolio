@@ -1,53 +1,78 @@
 ---
-title: STM32 Bare‑Metal & FreeRTOS + Custom PCB Bring‑Up
+title: STM32 + FreeRTOS Motor Control (18‑349 Lab 6)
 ---
 
-# Intro to Embedded Systems — STM32 Bare‑Metal & FreeRTOS + Custom PCB Bring‑Up
+# Intro to Embedded Systems — STM32 + FreeRTOS Motor Control (18‑349 Lab 6)
 
 ## TL;DR
-I built a bare-metal + FreeRTOS firmware stack on **STM32**, implemented multiple **peripheral drivers**, and brought up a **custom PCB** using lab instruments (scope/DMM/logic analyzer). The project emphasized reliable real-time behavior and hardware debugging.
+I implemented a **real-time motor position controller** on an STM32 using **FreeRTOS**, combining a **quadrature encoder ISR**, a **15 ms PID control loop**, and **interactive tuning** (keypad + LCD) to iteratively stabilize performance.
 
-> **Code:** (add link if public)  
-> **Demo:** (add link if available)
-
----
-
-## System overview
-- **MCU:** STM32
-- **RTOS:** FreeRTOS (task scheduling + synchronization)
-- **Peripherals:** EXTI, timers/PWM, UART, I²C, ADC
-- **Hardware:** custom PCB bring-up + wiring/measurement in lab
+> **Code:** publishable as a GitHub repo (or available upon request)  
+> **Demo:** no demo video — the hardware kit was returned at the end of the course, so I can’t re-record the setup. This page includes implementation details and artifacts.
 
 ---
 
-## What I built
-- Driver layer for key peripherals (UART/I²C/ADC/timers/EXTI)
-- FreeRTOS task structure (recommended to list 3–5 tasks):
-  - sensor/task loop
-  - UI/IO task (keypad/LCD)
-  - control task (PWM/servo/motor)
-  - comm/logging task (UART)
-- ISR + task integration (interrupt-safe queues/semaphores)
+## System architecture
+![System block diagram](assets/stm32/system_block_diagram.png)
+
+### Hardware / IO (from implementation)
+- **MCU:** STM32 (Cortex‑M) running **FreeRTOS**
+- **Actuation:** DC motor controlled via PWM + direction pins (IN1/IN2)
+- **Sensing:** quadrature encoder decoded via EXTI ISR
+- **User input:** push buttons for setpoint step, keypad + LCD for tuning
+- **Debug:** UART @ **115200** baud
 
 ---
 
-## Bring-up & debugging
-- Verified power rails and clocks, validated GPIO behavior
-- Used scope/logic analyzer to debug protocol timing and ISR behavior
-- Iterated PCB + firmware together to reach a stable demo
+## FreeRTOS design (tasks + timing)
+![FreeRTOS task breakdown](assets/stm32/rtos_task_breakdown.png)
+
+**Tasks created (from `lab6_main`)**
+- `PIDControl` — main control loop task  
+- `pid` — tune P/I/D gains from keypad; show summary on LCD  
+- `changeSetpoint` — adjust setpoint via buttons  
+- `ledToggle` — heartbeat LED  
+- `servoTask` — periodic servo movement (test/demo support)
+
+**Key timing parameters**
+- PID sample time: **15 ms** (`PID_SAMPLE_TIME_MS = 15`)
+- Heartbeat LED: **250 ms**
+- Button polling: **200 ms**
+- LCD refresh: **1000 ms**
 
 ---
 
-## Highlights (fill in numbers if you have them)
-- Control loop rate: **__ Hz**
-- Worst-case ISR latency / jitter: **__**
-- PWM frequency/resolution: **__**
+## Control loop details (PID + safety)
+The PID loop reads the encoder position and computes a drive command that is clamped to avoid stalling and saturation.
+
+**What I implemented**
+- **Encoder position** tracked modulo **1200 ticks/rev**
+- **Shortest-path error** with wrap-around handling (so error doesn’t “jump” across 0/rev boundary)
+- Output clamping (duty cycle bounds):
+  - `MIN_MOTOR_SPEED = 14`
+  - `MAX_MOTOR_SPEED = 90`
+- “Close enough” stop condition (deadband): if `|error| <= 30` ticks, motor stops
+
+**Setpoint stepping**
+- Buttons step setpoint by **±200 ticks** (≈ 60° per step if 1200 ticks/rev)
 
 ---
 
-## Next steps
-- Add automated hardware tests (loopback, self-test at boot)
-- Improve documentation (pinout, block diagram, bring-up checklist)
+## Interactive tuning (keypad + LCD)
+I implemented a small UI loop to tune PID gains live:
+- Prompt for **P**, **I**, **D** sequentially on LCD
+- Read digits from keypad
+- Update shared gain variables inside critical sections
+- Display a summary line with the current tuned values
+
+This makes iteration fast: tune → observe response → tune again, without rebuilding firmware.
+
+---
+
+## What I’d improve next
+- Move PID timing to a periodic timer/notification (avoid delays *inside* the PID update function)
+- Add a simple serial “telemetry frame” (position, setpoint, drive) to plot step response quickly
+- Add explicit anti-windup strategy tied to output saturation
 
 ---
 
