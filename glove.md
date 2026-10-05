@@ -1,153 +1,63 @@
 ---
-title: EMG Sign-Language Glove (ESP32)
+title: Gesture-classification glove
+description: EMG and motion sensing with on-device inference on ESP32-S3
 ---
 
-# Assistive Wearable Biosignal ML — EMG Sign-Language Glove (ESP32-S3)
+[All projects](./)
 
-## TL;DR
-I built an ESP32-based wearable that acquires **EMG** plus motion/orientation features from **accelerometer+gyroscope + an external high-quality magnetometer**, and runs **on-device sign-language classification** in **embedded C**. I used **Edge Impulse** to create an end-to-end embedded ML workflow for dataset collection, training, evaluation, and deployment. Recently, I **integrated a higher-quality magnetometer** and **eliminated flex sensors**, and I am expanding from single words toward **more words and phrase-level decoding**.
+Our Embedded Machine Learning team built a wearable prototype to classify a small set of gestures from biosignals and motion. I wrote C firmware, integrated sensors, collected data, trained and evaluated an Edge Impulse model, deployed it to the device, and documented calibration procedures.
 
-**Links**
-- **Code:** https://github.com/adwoama/SignLanguageLLM  
-- **Demo:** (add link)
+The project explores a camera-free input method for assistive communication. It is a limited-vocabulary prototype, not a general sign-language translator.
 
----
+## System and my contribution
 
-## Why this project
-Camera-based sign recognition can be sensitive to lighting/background and raises privacy concerns. A wearable interface can be:
-- **camera-free** (privacy),
-- **low-latency** (interactive),
-- **robust to environment** (works anywhere),
-- and a practical platform for **assistive communication**.
+The class prototype used an **ESP32-S3**, EMG, an IMU, a magnetometer, and flex sensors. My work connected sensor acquisition through analog inputs and I²C to the data-collection and embedded inference workflow.
 
-The main technical challenges are **biosignal variability** (session drift, electrode placement) and **motion artifacts**.
+![Class-demo system design and sensor inputs](assets/glove/demo_page_03.png)
 
----
+![Edge Impulse workflow used in the class project](assets/glove/demo_page_04.png)
 
-## System overview
-**Signal path:** EMG + inertial sensing → windowing/features → classifier → real-time output (**confidence gating + cooldown**).
+## Firmware and inference
 
-### Design artifacts (from demo)
-![System design / sensor fusion](assets/glove/demo_page_03.png)
+The documented pipeline samples sensor channels at **100 Hz**, forms **1,000 ms windows**, and advances by a **300 ms stride**. An Edge Impulse model classifies each window, with confidence gating and a cooldown to reduce ambiguous or repeated outputs.
 
-![Edge Impulse workflow](assets/glove/demo_page_04.png)
+The gesture labels are `I_LOVE_YOU`, `GOODBYE`, `HELLO`, `PLEASE`, `THANK_YOU`, and `YES`, alongside `IDLE` and `OTHER`. `UNCERTAIN` is an abstention output when confidence is insufficient.
 
-> **Version note:** The class demo slides show a v1 build that included flex sensors. The current iteration removes flex sensors and uses **EMG (Grove EMG Detector → ADS1115) + motion (MPU-9255 accel/gyro) + an external high-quality magnetometer (MMC5983MA)**.
+A one-second input window and model computation time are different parts of the response time. I do not report a measured end-to-end latency for the complete system here.
 
----
+## Class-demo results
 
-## Hardware & sensing
-- **MCU:** Seeed Studio **XIAO ESP32-S3**
-- **EMG front-end:** Seeed **Grove EMG Detector** (SKU 101020058; analog output)
-- **ADC (EMG digitization):** **ADS1115** (16-bit I²C ADC)  
-  - Used instead of the ESP32’s internal ADC to improve resolution/stability for EMG.
-- **Inertial sensing (motion):** **MPU-9255** over I²C (**accelerometer + gyroscope only**)
-- **Magnetometer (external, higher quality):** **MMC5983MA** over I²C  
-  - I intentionally **do not use** the MPU-9255’s internal magnetometer; MMC5983MA provides cleaner heading/orientation features for this wearable setup.
-- **Legacy sensor (v1/class project):** flex sensors (removed in current iteration)
+| Evaluation | Reported result |
+| --- | --- |
+| Validation accuracy | 94.6% |
+| Validation loss | 0.17 |
+| Test accuracy | 93.06% |
 
-**Form factor / mechanical**
-- Wearable glove integration; iterative mounting/alignment experiments (e.g., small **N52 magnets** for repeatable placement during prototyping).
+These are the results shown in the class-demo slides below. They apply to that model and dataset; they do not demonstrate accuracy across new users or later hardware revisions.
 
----
+![Validation accuracy, loss, and per-class confusion matrix](assets/glove/demo_page_05.png)
 
-## Firmware pipeline (embedded C)
-1. **Sample EMG** through **ADS1115 over I²C** at a fixed rate; apply basic pre-processing (baseline removal / smoothing as needed).
-2. **Sample motion** from **MPU-9255 accel/gyro** over I²C.
-3. **Sample heading/orientation features** from **MMC5983MA** over I²C.
-4. **Windowing:** 1.0 s windows with 0.3 s stride for classification.
-5. **Inference:** Edge Impulse model running on-device.
-6. **Post-processing:** confidence gating + cooldown to reduce false triggers and repeated outputs.
+![Test accuracy and confusion matrix, including uncertain outputs](assets/glove/demo_page_06.png)
 
-**Key parameters**
-- Sampling rate: **100 Hz**
-- Window length: **1000 ms** (**100 samples**)
-- Stride / overlap: **300 ms**
-- End-to-end latency (sensor → prediction): **~7 ms** (inference + decision path)
+The `OTHER` category and ambiguous gestures account for several of the errors. The test matrix also shows abstentions. That makes confidence handling part of the interface behavior, rather than just an overall accuracy number.
 
-**Runtime stability (recommended behavior)**
-- Output **UNCERTAIN** (or fall back to **OTHER**) if max confidence is below a threshold.
-- Apply a short **cooldown** after a confident detection to avoid repeated outputs from one sustained gesture.
+![Class prototype deployed on a glove](assets/glove/demo_page_07.png)
 
----
+[View the class-demo slides](assets/glove/Demo.pdf)
 
-## Data collection & labeling
-I used Edge Impulse to ingest and label time-series windows per class across multiple sessions, emphasizing consistent electrode placement and inclusion of an explicit **OTHER** class to reduce false positives.
+## Later hardware revision
 
+After the class project, I revised the sensing setup to remove the flex sensors and use an external **MMC5983MA magnetometer**. The revised hardware includes:
 
-## Model (Edge Impulse)
-**Pipeline:** Data capture & labeling → **Spectral Analysis** → classifier training & evaluation → embedded deployment.
+- Seeed XIAO ESP32-S3.
+- Grove EMG Detector with an ADS1115 I²C ADC.
+- MPU-9255 accelerometer and gyroscope.
+- MMC5983MA magnetometer in place of the IMU's internal magnetometer.
 
-### Vocabulary / classes
-Current target set:
-- **I_LOVE_YOU, GOODBYE, HELLO, PLEASE, THANK_YOU, YES, IDLE, OTHER**
-- Runtime may also output **UNCERTAIN** via confidence gating (useful for ambiguous windows).
+The diagrams and evaluation screenshots above describe the class version, which included flex sensors. I have not published a new accuracy evaluation for the revised sensor set on this page.
 
----
+## Limitations and next steps
 
-## Results
+EMG changes with electrode placement and between sessions, and movement can introduce noise. Magnetic disturbances also affect orientation measurements. Expanding the vocabulary and exploring phrase-level output are further work, not demonstrated capabilities of the class prototype.
 
-### Validation performance (Edge Impulse)
-- **Validation accuracy:** **94.6%**
-- **Loss:** **0.17**
-
-![Training/Validation metrics](assets/glove/demo_page_05.png)
-
-### Test performance
-- **Test accuracy:** **93.06%**
-
-![Testing metrics](assets/glove/demo_page_06.png)
-
-**What the confusion matrices suggest (high-level)**
-- Several gesture classes are strongly separable (often near-perfect for clean trials).
-- Most remaining errors are concentrated around **OTHER** (expected due to its broad definition) and occasional **UNCERTAIN** outputs (intentional abstention when confidence is low).
-- This tradeoff is desirable for assistive interfaces: **abstain rather than output a wrong word**.
-
----
-
-## Deployment
-Prototype deployed on-device and tested in real-time inference mode.
-
-![Prototype deployment](assets/glove/demo_page_07.png)
-
----
-
-## Recent updates (post-class)
-- Added **MMC5983MA** (higher-quality magnetometer) and migrated to **external mag features** instead of the IMU’s internal magnetometer.
-- Removed **flex sensors** to simplify hardware and focus on EMG + inertial sensing.
-- Training on **more words** and beginning **phrase/sentence-level** experiments.
-
----
-
-## Known limitations / failure modes (what I’m improving)
-- **Session drift:** EMG varies with electrode placement, skin contact, fatigue, hydration, and day-to-day differences.
-- **Motion artifacts:** glove movement and cable tug can introduce noise; inertial channels help detect context but don’t eliminate artifacts.
-- **OTHER class scope:** needs careful curation to avoid swallowing borderline examples and hurting precision.
-- **Magnetic disturbances:** headings can shift near metal objects; external mag helps, but calibration and feature design still matter.
-
----
-
-## Next steps
-- **Session-to-session robustness**
-  - quick calibration routine (baseline + guided contractions)
-  - normalization and per-session adaptation strategies
-- **Phrase-level decoding**
-  - temporal smoothing / hysteresis
-  - sequence decoding only if data scale supports it
-- **More rigorous evaluation**
-  - multi-session test protocol
-  - report precision/recall per class + latency/jitter under load
-
----
-
-## Bill of Materials (selected)
-- **XIAO ESP32-S3:** https://www.amazon.com/XIAO-ESP32C3-3PCS-Pack-Bluetooth5-0/dp/B0DJ6NQFKX  
-- **ADS1115 (16-bit I²C ADC):** https://www.amazon.com/Teyleten-Robot-Converter-Amplifier-Raspberry/dp/B0CNV9G4K1  
-- **MPU-9255 (accel/gyro used):** https://www.amazon.com/NITRIP-MPU-9255-Gyroscope-Acceleration-Magnetic/dp/B07VHSWP7F  
-- **MMC5983MA magnetometer:** https://www.amazon.com/SparkFun-Micro-Magnetometer-Integrated-Connection/dp/B0B75WCC15  
-- **Grove EMG Detector (SKU 101020058):** https://www.digikey.com/en/products/detail/seeed-technology-co-ltd/101020058/5482548  
-- **N52 magnets (mounting/alignment):** https://www.amazon.com/QeeaHuuo-N52-Magnets-Printing-Projects-3d/dp/B0F4MD2T9X  
-
----
-
-_Last updated: {datetime.date.today().isoformat()}_
+The next useful evaluation would separate training and testing across sessions and users, then report per-class precision and recall as well as complete-system latency. Source code is not publicly accessible through this portfolio; the demo slides and diagrams are the available artifacts.

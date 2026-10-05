@@ -1,34 +1,24 @@
 ---
-title: Embedded Real‑Time Systems (Embedded Linux & Scheduling)
+title: Embedded Linux and real-time scheduling
+description: C applications, kernel modules, and execution tracing on Raspberry Pi 4
 ---
 
-# Embedded Real‑Time Systems — Embedded Linux & Real‑Time Scheduling (Raspberry Pi)
+[All projects](./)
 
-## TL;DR
-I built user-space and kernel-level components on Raspberry Pi Linux to support experiments in **real-time scheduling**, **task monitoring**, and **performance tracing**. Work included C test applications, **loadable kernel modules**, and **custom system calls**, with trace analysis using **trace-cmd** and **KernelShark**.
+In CMU's Embedded Real-Time Systems course, I developed C applications, loadable kernel modules, and custom system calls for real-time scheduling and periodic-task monitoring on Raspberry Pi 4.
 
-> **Demo/logs:** (add link)  
-> **Code:** (add repo link or “available on request”)
+## My contribution
 
----
+- Wrote user-space applications to generate periodic workloads and exercise scheduling behavior.
+- Developed kernel components for task monitoring and control, including IOCTL interfaces and custom system calls.
+- Used trace-cmd and KernelShark to inspect execution and scheduling behavior.
 
-## What I built
-- **C user-space test applications** to generate and measure periodic workloads.
-- **Kernel modules** for task monitoring and control (e.g., IOCTL interfaces).
-- **Custom syscalls** supporting real-time task management.
-- **Tracing + analysis** workflows with trace-cmd / KernelShark.
+## Technical work
 
----
+The coursework included Linux real-time policies such as `SCHED_FIFO` and `SCHED_RR`, CPU affinity, high-resolution timers for periodic wakeups, and multicore task allocation. I used application behavior and execution traces together to investigate what the scheduler was doing.
 
-## Key technical areas
-- Real-time scheduling policies: **SCHED_FIFO / RR** (and experiments as applicable)
-- CPU affinity + multicore allocation strategies
-- High-resolution timers (**hrtimer**) for periodic wakeups
-- Basic bin-packing heuristics and energy-aware considerations (cpufreq governors)
+That distinction matters: configuring a real-time policy does not by itself demonstrate that an application meets its deadlines. Timing claims need measurements under the relevant workload.
 
----
+## Results and limits
 
-## Metrics (add at least one)
-- Measured scheduling latency / deadline miss rate under load: **__**
-- Reduced monitoring overhead to **__% CPU** or **__ µs/event**
-- Demonstrated improved periodicity (jitter) from **__ → __ ms**
+The applications and kernel work were completed as coursework. This page does not publish a benchmark dataset or claim a measured latency, deadline-miss rate, or CPU-overhead improvement. Course solution code is not included in this portfolio.

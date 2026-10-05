@@ -1,14 +1,19 @@
 ---
-title: STM32 + FreeRTOS Motor Control (18‑349 Lab 6)
+title: STM32 firmware and FreeRTOS motor control
+description: Device drivers, PCB bring-up, and a real-time control loop
 ---
 
-# Intro to Embedded Systems — STM32 + FreeRTOS Motor Control (18‑349 Lab 6)
+[All projects](./)
 
-## TL;DR
-I implemented a **real-time motor position controller** on an STM32 using **FreeRTOS**, combining a **quadrature encoder ISR**, a **15 ms PID control loop**, and **interactive tuning** (keypad + LCD) to iteratively stabilize performance.
+In CMU's Introduction to Embedded Systems course (18-349), I built bare-metal and FreeRTOS firmware in C for an STM32 board. Lab 6 brought the drivers together in a motor position controller with a quadrature encoder, a **15 ms PID control loop**, and keypad/LCD tuning.
 
-> **Code:** Not public (course submission / sharing restrictions); available upon request.
-> **Demo:** no demo video — the hardware kit was returned at the end of the course, so I can’t re-record the setup. This page includes implementation details and artifacts.
+Course solution code is not distributed here. The hardware kit was returned, so the diagrams and implementation summary below are the available project artifacts.
+
+## Board and driver work
+
+I captured the course-provided schematic and designed the PCB layout myself, then assembled, debugged, and brought up the board using an oscilloscope, multimeter, and bench power supply. The underlying circuit was provided by the course; my design contribution was the layout.
+
+I wrote C drivers for EXTI, timers and PWM, UART, I²C, and ADC to support the keypad, LCD, servo, encoder, and DC motor. The motor-control example below shows how those pieces worked together.
 
 ---
 
@@ -42,8 +47,8 @@ I implemented a **real-time motor position controller** on an STM32 using **Free
 
 ---
 
-## Control loop details (PID + safety)
-The PID loop reads the encoder position and computes a drive command that is clamped to avoid stalling and saturation.
+## Control loop details
+The PID loop reads the encoder position and computes a drive command with configured duty-cycle bounds. Those bounds limit the commanded output; they are not evidence of a validated motor-protection system.
 
 **What I implemented**
 - **Encoder position** tracked modulo **1200 ticks/rev**
@@ -76,4 +81,4 @@ This makes iteration fast: tune → observe response → tune again, without reb
 
 ---
 
-_Last updated: 2026-01-07_
+The 15 ms value is the configured control period. No measured jitter or step-response dataset is published on this page.

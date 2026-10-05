@@ -1,47 +1,32 @@
 ---
-title: Respiratory & ECMO Monitoring (PSoC 5 + Raspberry Pi)
+title: TeleLine gas-flow sensing
+description: Firmware timing, USB telemetry, and benchtop validation
 ---
 
-# Connected Medical Devices — Respiratory & ECMO Monitoring (PSoC 5 + Raspberry Pi)
+[All projects](./)
 
-## TL;DR
-I contributed firmware and tooling for sensor-based respiratory/ECMO monitoring prototypes, focusing on **deterministic sampling**, **low-latency streaming**, and **benchtop validation** against reference instrumentation.
+At CMU's Biorobotics Lab, I worked on firmware and data acquisition for a gas-flow sensing research prototype from June through December 2025. My focus was making sampling more repeatable and making the data easier to inspect and test.
 
-- **Code/data:** Not public due to research lab confidentiality (available upon request).  
-- **Demo:** Not available — the physical setup was in-lab and is no longer accessible to re-record.
+**Platform:** PSoC 5LP, USB serial (CDC), Raspberry Pi, C, and Python.
 
----
+## Sampling and timing
 
-## System overview
-- **MCU:** PSoC 5 (timing-critical acquisition + protocol)
-- **Host:** Raspberry Pi (ingest + logging + analysis)
-- **Links:** USBUART/UART
-- **Validation:** compared measurements against a reference instrument (**TSI 4040**) across multiple parameter settings
+I replaced software-delay loops with PSoC hardware timers. In SYNC mode, BME sampling increased from roughly **15 Hz to a fixed 21.7 Hz**. I also added a selectable FAST mode with independent SDP pressure updates at **100 Hz** and BME updates at **20.8 Hz**.
 
----
+The modes served different acquisition needs. Keeping their rates explicit made it possible to test the device's behavior and interpret the logged data without assuming that all sensors updated together.
 
-## What I did
-- Reworked firmware toward **timer-driven, deterministic sampling** to reduce jitter and improve repeatability
-- Designed and implemented a **binary communication protocol** (replacing ASCII) to reduce overhead and improve parsing robustness
-- Built **Python tooling** to capture, parse, and validate data against reference measurements
-- Supported repeatable bench experiments (including extended data collection runs) and documented results for iteration
+## Telemetry and test tools
 
----
+I implemented a versioned binary USB protocol with COBS framing, CRC-32, device timestamps, and sample-loss diagnostics. I built Python tools for session logging, live plots, automated rate sweeps, and hour-long timing tests.
 
-## Engineering highlights
-- Deterministic acquisition path from sensor sampling → packetization → USBUART streaming → Pi-side logging
-- Validation mindset: **capture, parse, compare**, and iterate until measurements match reference behavior
-- Practical instrumentation: oscilloscope/DMM measurements used during debugging and validation
+These tools let me examine both the measurements and how they arrived. A changing value, a missed sample, and an irregular update interval are different problems; the telemetry needed to help distinguish them.
 
----
+## Benchtop testing and handoff
 
-## What I can discuss in interviews
-Even though the repo is not public, I can walk through:
-- protocol framing choices and error handling
-- sampling architecture and timing tradeoffs
-- validation methodology vs reference instrumentation
-- how I structured parsing + logging scripts for fast iteration
+I led **more than 20 hours of gas-flow testing** against a **TSI 4040 reference flow meter** across multiple parameter settings. I documented the firmware setup and data protocol so the dashboard team had an interface to work from.
 
----
+This work established a repeatable acquisition and testing workflow. It does not establish clinical performance or a numerical sensing-accuracy improvement, and I do not claim either here.
 
-_Last updated: 2026-01-07_
+## Public scope
+
+The research code and raw data are not public. I can discuss the general sampling architecture, protocol design, and testing approach within the lab's sharing restrictions.
