@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% seo %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.github.build_revision }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <div class="site-shell header-inner">
+        <div>
+          {% if page.home %}
+          <h1 class="site-name">Tianyi He</h1>
+          {% else %}
+          <a class="site-name" href="{{ '/' | relative_url }}">Tianyi He</a>
+          {% endif %}
+          <p class="site-focus">Embedded firmware, hardware bring-up, and sensor systems</p>
+        </div>
+        <nav class="contact-links" aria-label="Contact and profiles">
+          <a href="mailto:hetianyi74@gmail.com">Email</a>
+          <a href="https://www.linkedin.com/in/tianyi-he-144809217/">LinkedIn</a>
+          <a href="https://github.com/TianyiHe74">GitHub</a>
+        </nav>
+      </div>
+    </header>
+    <main id="content" class="main-content{% if page.home %} home-content{% endif %}" tabindex="-1">
+      {% unless page.home %}
+      <header class="article-header">
+        <h1>{{ page.title | escape }}</h1>
+        {% if page.description %}<p>{{ page.description | escape }}</p>{% endif %}
+      </header>
+      {% endunless %}
+      {{ content }}
+    </main>
+    <footer class="site-footer site-shell">
+      <p>Tianyi He <span aria-hidden="true">·</span> Embedded systems</p>
+      <a href="{{ '/' | relative_url }}#selected-projects">Selected projects</a>
+    </footer>
+  </body>
+</html>

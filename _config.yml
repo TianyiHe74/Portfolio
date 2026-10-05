@@ -4,3 +4,8 @@ description: C firmware, hardware bring-up, and sensor testing. CMU M.S. ECE, Ma
 url: https://tianyihe74.github.io
 baseurl: /Portfolio
 show_downloads: false
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default

@@ -1,54 +1,77 @@
 ---
 title: Tianyi He
 description: Embedded firmware, hardware bring-up, and sensor systems
+home: true
 ---
 
-I am an M.S. student in Electrical and Computer Engineering at Carnegie Mellon, with expected program completion in **May 2027**. I work mainly in **C**, with Python for testing and data collection. My projects span MCU firmware, real-time scheduling, PCB bring-up, and sensor integration.
+<div class="intro" markdown="1">
+I am an M.S. student in Electrical and Computer Engineering at Carnegie Mellon, completing my program in **May 2027**. I work mainly in **C**, with Python for testing and data collection.
 
 I like working on problems where building a useful physical system can make a real difference. These pages explain what I contributed, how I tested it, and what still needs work.
+</div>
 
-[Email](mailto:hetianyi74@gmail.com) · [LinkedIn](https://www.linkedin.com/in/tianyi-he-144809217/) · [GitHub](https://github.com/TianyiHe74)
+<section class="project-list" aria-labelledby="selected-projects">
+  <h2 id="selected-projects">Selected projects</h2>
 
-## Selected projects
+  <article class="project">
+    <div class="project-summary">
+      <h3><a href="esab.html">Medical-gas pipeline monitoring</a></h3>
+      <p class="project-tools">Sensor systems · Requirements and design · Hardware testing</p>
+      <p>Research with CMU’s Biorobotics Lab and ESAB. I contribute to firmware, sensor evaluation, board design, and a medical-gas testbed; the project page is a high-level summary because the implementation is confidential.</p>
+    </div>
+  </article>
 
-### [Medical-gas pipeline monitoring](esab.html)
+  <article class="project">
+    <div class="project-summary">
+      <h3><a href="resp_ecmo_monitoring.html">TeleLine: gas-flow sensing and data acquisition</a></h3>
+      <p class="project-tools">C · PSoC 5LP · USB serial · Python · Bench testing</p>
+      <p>I replaced delay loops with hardware timers and built telemetry and test tools to make sampling more repeatable. The project page connects those changes to timing checks and reference-instrument testing.</p>
+    </div>
+  </article>
 
-**Sensor systems · Requirements and design · Hardware testing**
+  <article class="project project-with-preview">
+    <div class="project-summary">
+      <h3><a href="stm32_freertos.html">STM32 firmware, PCB bring-up, and motor control</a></h3>
+      <p class="project-tools">C · Device drivers · PCB layout · FreeRTOS</p>
+      <p>I laid out and brought up a board from a course-provided schematic, then wrote its bare-metal and RTOS firmware. A motor controller brought the drivers, encoder feedback, and task timing together.</p>
+    </div>
+    <figure class="project-preview">
+      <a href="stm32_freertos.html" aria-label="Read the STM32 motor-control project">
+        <img src="assets/stm32/control-loop.svg" alt="Encoder feedback feeds a FreeRTOS PID task, which drives the motor through PWM." width="420" height="340" loading="lazy">
+      </a>
+      <figcaption>Motor-control loop</figcaption>
+    </figure>
+  </article>
 
-Research work with CMU's Biorobotics Lab and ESAB. I contribute to embedded firmware, sensor evaluation, board design, and a testbed for medical-gas monitoring. This page is a high-level summary; project code, designs, and data are confidential.
+  <article class="project">
+    <div class="project-summary">
+      <h3><a href="embedded_real_time_systems.html">Embedded Linux and real-time scheduling</a></h3>
+      <p class="project-tools">C · Linux kernel modules · System calls · Execution tracing</p>
+      <p>I built applications and kernel components on Raspberry Pi 4 for periodic-task monitoring and scheduling experiments, then used execution traces to investigate their behavior.</p>
+    </div>
+  </article>
 
-### [TeleLine: gas-flow sensing and data acquisition](resp_ecmo_monitoring.html)
+  <article class="project project-with-preview">
+    <div class="project-summary">
+      <h3><a href="glove.html">Gesture-classification glove</a></h3>
+      <p class="project-tools">C · ESP32-S3 · EMG and motion sensors · Edge Impulse</p>
+      <p>Our team built a wearable prototype that recognizes a small set of gestures on the device. I contributed firmware, sensor integration, data collection, model training, and deployment.</p>
+    </div>
+    <figure class="project-preview glove-preview">
+      <a href="glove.html" aria-label="Read the gesture-classification glove project">
+        <img src="assets/glove/class-prototype.jpeg" alt="The class prototype worn on a hand, with flex sensors, wiring, and breadboards attached to the glove." width="688" height="914" loading="lazy">
+      </a>
+      <figcaption>Our class-demo prototype</figcaption>
+    </figure>
+  </article>
 
-**C · PSoC 5LP · USB serial · Python · Bench testing**
+  <article class="project">
+    <div class="project-summary">
+      <h3><a href="postpartum_health.html">Environmental sensing for a home-health prototype</a></h3>
+      <p class="project-tools">Python · Raspberry Pi · Wi-Fi and HTTP · AWS DynamoDB</p>
+      <p>Our team used decision matrices to compare controllers, sensors, and communication options. I worked on environmental hardware and firmware, including the Pi receiver and cloud-logging path.</p>
+    </div>
+  </article>
+</section>
 
-I replaced firmware delay loops with hardware timers, implemented binary telemetry, and built logging and test tools. The case study connects the sampling changes to timing checks and more than 20 hours of reference-instrument testing.
-
-### [STM32 firmware, PCB bring-up, and FreeRTOS motor control](stm32_freertos.html)
-
-**C · Device drivers · PCB layout · FreeRTOS · PWM and encoders**
-
-I captured the course-provided schematic, designed the PCB layout, assembled and debugged the board, and wrote bare-metal and RTOS firmware. The motor-control example includes the task structure, control parameters, and remaining improvements.
-
-### [Embedded Linux and real-time scheduling](embedded_real_time_systems.html)
-
-**C · Linux kernel modules · System calls · trace-cmd and KernelShark**
-
-I built applications and kernel components on Raspberry Pi 4 for periodic-task monitoring and scheduling experiments, then examined execution traces. The page describes the implementation and the limits of the available timing evidence.
-
-### [Gesture-classification glove](glove.html)
-
-**C · ESP32-S3 · EMG and motion sensors · Edge Impulse**
-
-A team prototype for recognizing a small set of gestures on the device. I contributed firmware, sensor integration, data collection, model training, and deployment. Demo results and later hardware revisions are described separately.
-
-### [Environmental sensing for a home-health prototype](postpartum_health.html)
-
-**Python · Raspberry Pi · Wi-Fi and HTTP · AWS DynamoDB**
-
-Our team used decision matrices to compare controllers, sensors, and communication options. I worked on the environmental hardware and firmware, including a Pi receiver that combines sensor readings and writes timestamped records to DynamoDB. The page links the public implementation, matrices, and system diagrams.
-
-## Technical focus
-
-My strongest programming language is C; I also use Python and supporting C++. I work with STM32, PSoC, ESP32, and Raspberry Pi, and use oscilloscopes, logic analyzers, multimeters, and bench supplies to connect firmware behavior to what the hardware is actually doing.
-
-For research and course projects, I share only the material permitted for public use. Team contributions are identified on each page.
+<p class="sharing-note">Team contributions and sharing limits are identified on each project page.</p>

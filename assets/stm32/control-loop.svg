@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="340" viewBox="0 0 420 340" role="img" aria-labelledby="title description">
+  <title id="title">STM32 motor-control loop</title>
+  <desc id="description">An encoder interrupt handler updates position. A FreeRTOS PID task reads it on a configured 15 millisecond control period and commands the motor through PWM. Motor position feeds back to the encoder.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L6,3 L0,6" fill="none" stroke="#17656a" stroke-width="1.4"/></marker>
+  </defs>
+  <g fill="#fff" stroke="#b8c9d0" stroke-width="2">
+    <rect x="94" y="12" width="290" height="74" rx="3"/>
+    <rect x="94" y="132" width="290" height="82" rx="3"/>
+    <rect x="94" y="260" width="290" height="66" rx="3"/>
+  </g>
+  <g font-family="Arial, sans-serif" text-anchor="middle" fill="#16354c">
+    <text x="239" y="43" font-size="23">Encoder ISR</text>
+    <text x="239" y="67" font-size="17" fill="#566770">Position feedback</text>
+    <text x="239" y="165" font-size="23">FreeRTOS PID task</text>
+    <text x="239" y="193" font-size="17" fill="#566770">15 ms configured period</text>
+    <text x="239" y="301" font-size="23">PWM to motor</text>
+  </g>
+  <g fill="none" stroke="#17656a" stroke-width="2.5" marker-end="url(#arrow)">
+    <path d="M239 87 V121"/>
+    <path d="M239 215 V249"/>
+    <path d="M94 293 H38 V49 H83"/>
+  </g>
+</svg>
