@@ -129,7 +129,8 @@ home: true
   </div>
 </section>
 <section class="home-about shell" id="about" aria-labelledby="about-title">
+  <img class="about-photo" src="assets/profile/tianyi-he.jpg" width="480" height="719" alt="Portrait of Tianyi He." loading="lazy" decoding="async">
   <h2 id="about-title">About me</h2>
-  <div><p>I’m an M.S. student in Electrical and Computer Engineering at Carnegie Mellon, completing my program in May 2027. I mainly work in C and Python.</p><p>I like working on problems where building a useful physical system can make a real difference. Here, I explain what I contributed, how I tested it, and what still needs work.</p><a class="text-link" href="mailto:hetianyi74@gmail.com">Contact me <span aria-hidden="true">↗</span></a></div>
+  <div class="home-about-copy"><p>I’m an M.S. student in Electrical and Computer Engineering at Carnegie Mellon, completing my program in May 2027. I mainly work in C and Python.</p><p>I like working on problems where building a useful physical system can make a real difference. Here, I explain what I contributed, how I tested it, and what still needs work.</p><a class="text-link" href="mailto:hetianyi74@gmail.com">Contact me <span aria-hidden="true">↗</span></a></div>
 </section>
 </div>
