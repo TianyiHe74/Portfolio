@@ -1,0 +1,30 @@
+name: Validate portfolio production build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Build with the GitHub Pages Jekyll environment
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Check generated pages and local references
+        run: python3 .github/scripts/check_site.py _site
+      - name: Keep the production output for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-production-build
+          path: _site/
+          retention-days: 7
+          if-no-files-found: error

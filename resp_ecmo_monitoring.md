@@ -1,32 +1,22 @@
 ---
+layout: portfolio
 title: TeleLine gas-flow sensing
-description: Firmware timing, USB telemetry, and benchtop validation
+description: Timer-driven sampling, USB telemetry, and benchtop testing on PSoC 5LP.
 ---
 
-[All projects](./)
-
-At CMU's Biorobotics Lab, I worked on firmware and data acquisition for a gas-flow sensing research prototype from June through December 2025. My focus was making sampling more repeatable and making the data easier to inspect and test.
-
-**Platform:** PSoC 5LP, USB serial (CDC), Raspberry Pi, C, and Python.
-
-## Sampling and timing
-
-I replaced software-delay loops with PSoC hardware timers. In SYNC mode, BME sampling increased from roughly **15 Hz to a fixed 21.7 Hz**. I also added a selectable FAST mode with independent SDP pressure updates at **100 Hz** and BME updates at **20.8 Hz**.
-
-The modes served different acquisition needs. Keeping their rates explicit made it possible to test the device's behavior and interpret the logged data without assuming that all sensors updated together.
-
-## Telemetry and test tools
-
-I implemented a versioned binary USB protocol with COBS framing, CRC-32, device timestamps, and sample-loss diagnostics. I built Python tools for session logging, live plots, automated rate sweeps, and hour-long timing tests.
-
-These tools let me examine both the measurements and how they arrived. A changing value, a missed sample, and an irregular update interval are different problems; the telemetry needed to help distinguish them.
-
-## Benchtop testing and handoff
-
-I led **more than 20 hours of gas-flow testing** against a **TSI 4040 reference flow meter** across multiple parameter settings. I documented the firmware setup and data protocol so the dashboard team had an interface to work from.
-
-This work established a repeatable acquisition and testing workflow. It does not establish clinical performance or a numerical sensing-accuracy improvement, and I do not claim either here.
-
-## Public scope
-
-The research code and raw data are not public. I can discuss the general sampling architecture, protocol design, and testing approach within the lab's sharing restrictions.
+<div class="shell"><a class="back-link" href="index.html#projects"><span aria-hidden="true">←</span> All projects</a></div>
+<section class="case-hero shell "><div><p class="eyebrow">Case study 02 / Sensing &amp; acquisition</p><h1>TeleLine:<br>gas-flow sensing</h1><p class="case-intro">At CMU’s Biorobotics Lab, I worked on firmware and data acquisition for a gas-flow sensing research prototype. My focus was making sampling more repeatable and making the data easier to inspect and test.</p><div class="tags"><span>C</span><span>PSoC 5LP</span><span>USB serial</span><span>Python</span><span>Raspberry Pi</span></div></div></section>
+<section class="case-overview shell" aria-label="Project at a glance"><div><p class="eyebrow">Context</p><p>CMU Biorobotics Lab<br>June–December 2025</p></div><div><p class="eyebrow">My contribution</p><p>Acquisition firmware, telemetry,<br>and benchtop testing</p></div><div><p class="eyebrow">Public materials</p><p>Sampling architecture and testing approach<br>Research code and raw data are not public</p></div></section>
+<section class="project-overview shell" aria-labelledby="sampling-title"><div class="section-heading"><div><p class="eyebrow">Acquisition modes</p><h2 id="sampling-title">Sampling and data flow</h2></div><p>Hardware timers replaced software-delay loops.</p></div><div class="mode-grid"><div class="mode-card"><p class="eyebrow">SYNC mode / BME sampling</p><div class="rate-change"><span>~15 <small>Hz</small></span><span class="rate-arrow" aria-label="increased to">→</span><strong>21.7 <small>Hz</small></strong></div><p>Fixed-rate BME sampling after the timer change.</p></div><div class="mode-card mode-dark"><p class="eyebrow">FAST mode / independent updates</p><div class="dual-rate"><div><strong>100 <small>Hz</small></strong><span>SDP pressure</span></div><div><strong>20.8 <small>Hz</small></strong><span>BME</span></div></div><p>The sensors update independently in this mode.</p></div></div><div class="data-flow" aria-label="Data acquisition and inspection path"><div><span class="eyebrow">Acquisition</span><h3>PSoC 5LP</h3><p>Timer-driven sensor updates</p></div><span aria-hidden="true">→</span><div><span class="eyebrow">Transport</span><h3>Binary USB protocol</h3><p>COBS · CRC-32 · timestamps</p></div><span aria-hidden="true">→</span><div><span class="eyebrow">Inspection</span><h3>Python tools</h3><p>Logging · plots · timing tests</p></div></div></section>
+<div class="case-body shell"><aside class="case-nav" aria-label="On this page"><p class="eyebrow">In this case study</p><a href="#section-1">01 / Sampling and timing</a><a href="#section-2">02 / Telemetry and test tools</a><a href="#section-3">03 / Reference testing and team handoff</a><a href="#section-4">04 / Public scope</a></aside><div class="case-sections"><section id="section-1"><p class="eyebrow">01 / Sensing &amp; acquisition</p><h2>Sampling and timing</h2><p>I replaced software-delay loops with PSoC hardware timers. In SYNC mode, BME sampling increased from roughly <strong>15 Hz to a fixed 21.7 Hz</strong>. I also added a selectable FAST mode with independent SDP pressure updates at <strong>100 Hz</strong> and BME updates at <strong>20.8 Hz</strong>.</p>
+<p>The modes served different acquisition needs. Keeping their rates explicit made it possible to test the device&#39;s behavior and interpret the logged data without assuming that all sensors updated together.</p>
+</section>
+<section id="section-2"><p class="eyebrow">02 / Sensing &amp; acquisition</p><h2>Telemetry and test tools</h2><p>I implemented a versioned binary USB protocol with COBS framing, CRC-32, device timestamps, and sample-loss diagnostics. I built Python tools for session logging, live plots, automated rate sweeps, and hour-long timing tests.</p>
+<p>These tools let me examine both the measurements and how they arrived. A changing value, a missed sample, and an irregular update interval are different problems; the telemetry needed to help distinguish them.</p>
+</section>
+<section id="section-3"><p class="eyebrow">03 / Sensing &amp; acquisition</p><h2>Reference testing and team handoff</h2><p>I led <strong>more than 20 hours of gas-flow testing</strong> against a <strong>TSI 4040 reference flow meter</strong> across multiple parameter settings. I documented the firmware setup and data protocol so the dashboard team had an interface to work from.</p>
+<p>This work established a repeatable acquisition and testing workflow. It does not establish clinical performance or a numerical sensing-accuracy improvement, and I do not claim either here.</p>
+</section>
+<section id="section-4"><p class="eyebrow">04 / Sensing &amp; acquisition</p><h2>Public scope</h2><p>The research code and raw data are not public. I can discuss the general sampling architecture, protocol design, and testing approach within the lab&#39;s sharing restrictions.</p>
+</section></div></div>
+<section class="next-project shell"><p class="eyebrow">Next project</p><a href="esab.html"><h2>Medical-gas pipeline monitoring</h2><span aria-hidden="true">↗</span></a><p>Embedded systems research with CMU’s Biorobotics Lab and ESAB.</p></section>

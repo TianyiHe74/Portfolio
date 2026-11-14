@@ -1,68 +1,43 @@
 ---
+layout: portfolio
 title: Environmental sensing for a home-health prototype
-description: Wireless sensor data collection and cloud logging
+description: Environmental hardware, a Wi-Fi receiver, and cloud logging for the Fourth Trimester Health team project.
 ---
 
-[All projects](./)
-
-In the Fourth Trimester Health team project, I worked on environmental hardware and firmware for a home-health monitoring concept. Our subsystem collected air-quality readings and sent them through a Raspberry Pi base station to cloud storage. It was a course prototype, not a clinically validated monitoring device.
-
-[Team repository](https://github.com/CMU-RPCS-2025/Environmental_HW_FW) · [My PM/gas receiver and cloud-logging branch](https://github.com/CMU-RPCS-2025/Environmental_HW_FW/tree/tianyi_PMCO2_wifi_cloud)
-
-## System and my contribution
-
-Our broader team built a base station and several sensing substations. I contributed to the environmental hardware and firmware workstream, including the Wi-Fi receiver and cloud-logging path for the PM/gas node.
-
-![Team system architecture with base station and sensing substations](assets/postpartum/architecture_overview.png)
-
-The environmental work included a **Pico 2 W** node with a **PMSA003I particulate sensor** and an **MQ-135 gas sensor**, plus a separate **Enviro+** approach for ambient measurements. A **Raspberry Pi 5** served as the base station.
-
-## Choosing the hardware
-
-We used decision matrices to compare MCUs, sensors, and communication options before selecting components. The base station and sensing nodes had different needs, so we compared them separately instead of looking for one board to do everything.
-
-- **Controllers:** programming support, cost, wireless connectivity, power, memory, form factor, and sensor interfaces.
-- **Sensors:** what each device could measure, its stated range, and its calibration needs.
-- **Wireless links:** bandwidth, energy use, range, support for multiple devices, and implementation effort.
-
-The matrices made those tradeoffs explicit and gave the team a common basis for the component decisions. They were working design notes, not bench measurements.
-
-[View the MCU, sensor, and wireless decision matrices](assets/postpartum/design_matrices.xlsx)
-
-## Communication and storage
-
-The PM/gas implementation sends readings over Wi-Fi to a Flask HTTP endpoint on the Pi. My receiver stores the latest PM and gas readings, then periodically combines them into a timestamped DynamoDB record once both are available. The Enviro+ path uses MQTT; it is a separate implementation within the team's system.
-
-![Wireless protocol trade study](assets/postpartum/wireless_protocol_matrix.png)
-
-The table uses a `device_id` partition key and a `timestamp` sort key. The receiver preserves particulate counts, PM concentration fields, gas-sensor values, and calibration-related fields, converting numeric values to the types expected by DynamoDB.
-
-## What the implementation establishes
-
-The public branch shows the HTTP receiver and periodic upload loop. It waits for both sensor groups before uploading and logs upload failures. The current design combines each sensor's latest value; it does not establish synchronized acquisition. It also does not implement durable buffering or automatic replay of failed uploads.
-
-The MQ-135 output and calibration fields should not be treated as a validated selective CO₂ measurement. The portfolio does not claim a reference-verified gas-concentration accuracy.
-
-## Design artifacts
-
-The team used architecture diagrams, component comparisons, procurement planning, and a software inventory to work through the sensing and integration choices.
-
-### Component planning
-
-![Procurement list excerpt](assets/postpartum/procurement_list.png)
-
-[Procurement workbook](assets/postpartum/procurement_list.xlsx)
-
-### Software and drivers
-
-![Software libraries and drivers excerpt](assets/postpartum/software_libraries.png)
-
-[Software inventory workbook](assets/postpartum/software_libraries.xlsx)
-
-### Sensor comparison
-
-![Air-quality sensor comparison](assets/postpartum/air_quality_sensor_matrix.png)
-
-[Design matrices](assets/postpartum/design_matrices.xlsx) · [Editable system topology](assets/postpartum/topology_mqtt.drawio) · [PM/gas wiring diagram](assets/postpartum/pico_wiring_pm_mq135.drawio)
-
-The trade studies and diagrams record the team's design work. The linked branch is the reference for the PM/gas receiver's implemented behavior.
+<div class="shell"><a class="back-link" href="index.html#projects"><span aria-hidden="true">←</span> All projects</a></div>
+<section class="case-hero shell "><div><p class="eyebrow">Case study 06 / Prototyping</p><h1>Environmental sensing<br>for home health</h1><p class="case-intro">In the Fourth Trimester Health team project, I worked on environmental hardware and firmware. Our subsystem sent air-quality readings through a Raspberry Pi base station to cloud storage.</p><div class="tags"><span>Python</span><span>Pico 2 W</span><span>Raspberry Pi 5</span><span>Wi-Fi / HTTP</span><span>DynamoDB</span></div><div class="hero-actions"><a class="button primary" href="https://github.com/CMU-RPCS-2025/Environmental_HW_FW/tree/tianyi_PMCO2_wifi_cloud">View my implementation <span aria-hidden="true">↗</span></a><a class="text-link" href="https://github.com/CMU-RPCS-2025/Environmental_HW_FW">Team repository <span aria-hidden="true">↗</span></a></div></div></section>
+<section class="case-overview shell" aria-label="Project at a glance"><div><p class="eyebrow">Context</p><p>Fourth Trimester Health<br>Team course prototype</p></div><div><p class="eyebrow">My contribution</p><p>Environmental hardware and firmware<br>PM/gas receiver and cloud-logging path</p></div><div><p class="eyebrow">Scope</p><p>Prototype data collection<br>No clinical or gas-accuracy validation claimed</p></div></section>
+<section class="project-overview shell" aria-labelledby="environment-path"><div class="section-heading"><div><p class="eyebrow">PM/gas implementation</p><h2 id="environment-path">Sensor node to cloud storage</h2></div></div><div class="data-flow"><div><span class="eyebrow">Sensor node</span><h3>Pico 2 W</h3><p>PMSA003I + MQ-135</p></div><span aria-hidden="true">→</span><div><span class="eyebrow">Wi-Fi / HTTP</span><h3>Raspberry Pi 5</h3><p>Flask receiver</p></div><span aria-hidden="true">→</span><div><span class="eyebrow">Periodic upload</span><h3>DynamoDB</h3><p>Timestamped records</p></div></div><p class="overview-note">The separate Enviro+ implementation uses MQTT. The paths are not interchangeable.</p></section>
+<div class="case-body shell"><aside class="case-nav" aria-label="On this page"><p class="eyebrow">In this case study</p><a href="#section-1">01 / System and my contribution</a><a href="#section-2">02 / Choosing the hardware</a><a href="#section-3">03 / Communication and storage</a><a href="#section-4">04 / What the implementation establishes</a><a href="#section-5">05 / Design artifacts</a></aside><div class="case-sections"><section id="section-1"><p class="eyebrow">01 / Prototyping</p><h2>System and my contribution</h2><p>Our broader team built a base station and several sensing substations. I contributed to the environmental hardware and firmware workstream, including the Wi-Fi receiver and cloud-logging path for the PM/gas node.</p>
+<figure class="case-picture "><a href="assets/postpartum/architecture_overview.png" aria-label="Open full-size image: Team system architecture with base station and sensing substations"><img src="assets/postpartum/architecture_overview.png" alt="Team system architecture with base station and sensing substations" loading="lazy"></a><figcaption>Team design artifact</figcaption></figure>
+<p>The environmental work included a <strong>Pico 2 W</strong> node with a <strong>PMSA003I particulate sensor</strong> and an <strong>MQ-135 gas sensor</strong>, plus a separate <strong>Enviro+</strong> approach for ambient measurements. A <strong>Raspberry Pi 5</strong> served as the base station.</p>
+</section>
+<section id="section-2"><p class="eyebrow">02 / Prototyping</p><h2>Choosing the hardware</h2><p>We used decision matrices to compare MCUs, sensors, and communication options before selecting components. The base station and sensing nodes had different needs, so we compared them separately instead of looking for one board to do everything.</p>
+<ul>
+<li><strong>Controllers:</strong> programming support, cost, wireless connectivity, power, memory, form factor, and sensor interfaces.</li>
+<li><strong>Sensors:</strong> what each device could measure, its stated range, and its calibration needs.</li>
+<li><strong>Wireless links:</strong> bandwidth, energy use, range, support for multiple devices, and implementation effort.</li>
+</ul>
+<p>The matrices made those tradeoffs explicit and gave the team a common basis for the component decisions. They were working design notes, not bench measurements.</p>
+<p><a href="assets/postpartum/design_matrices.xlsx">View the MCU, sensor, and wireless decision matrices</a></p>
+</section>
+<section id="section-3"><p class="eyebrow">03 / Prototyping</p><h2>Communication and storage</h2><p>The PM/gas implementation sends readings over Wi-Fi to a Flask HTTP endpoint on the Pi. My receiver stores the latest PM and gas readings, then periodically combines them into a timestamped DynamoDB record once both are available. The Enviro+ path uses MQTT; it is a separate implementation within the team&#39;s system.</p>
+<figure class="case-picture "><a href="assets/postpartum/wireless_protocol_matrix.png" aria-label="Open full-size image: Wireless protocol trade study"><img src="assets/postpartum/wireless_protocol_matrix.png" alt="Wireless protocol trade study" loading="lazy"></a><figcaption>Team design artifact</figcaption></figure>
+<p>The table uses a <code>device_id</code> partition key and a <code>timestamp</code> sort key. The receiver preserves particulate counts, PM concentration fields, gas-sensor values, and calibration-related fields, converting numeric values to the types expected by DynamoDB.</p>
+</section>
+<section id="section-4"><p class="eyebrow">04 / Prototyping</p><h2>What the implementation establishes</h2><p>The public branch shows the HTTP receiver and periodic upload loop. It waits for both sensor groups before uploading and logs upload failures. The current design combines each sensor&#39;s latest value; it does not establish synchronized acquisition. It also does not implement durable buffering or automatic replay of failed uploads.</p>
+<p>The MQ-135 output and calibration fields should not be treated as a validated selective CO₂ measurement. The portfolio does not claim a reference-verified gas-concentration accuracy.</p>
+</section>
+<section id="section-5"><p class="eyebrow">05 / Prototyping</p><h2>Design artifacts</h2><details class="artifact"><summary>Component planning, software inventory, and sensor comparison<span aria-hidden="true">+</span></summary><div class="artifact-content"><p>The team used architecture diagrams, component comparisons, procurement planning, and a software inventory to work through the sensing and integration choices.</p>
+<h3>Component planning</h3>
+<figure class="case-picture "><a href="assets/postpartum/procurement_list.png" aria-label="Open full-size image: Procurement list excerpt"><img src="assets/postpartum/procurement_list.png" alt="Procurement list excerpt" loading="lazy"></a><figcaption>Team design artifact</figcaption></figure>
+<p><a href="assets/postpartum/procurement_list.xlsx">Procurement workbook</a></p>
+<h3>Software and drivers</h3>
+<figure class="case-picture "><a href="assets/postpartum/software_libraries.png" aria-label="Open full-size image: Software libraries and drivers excerpt"><img src="assets/postpartum/software_libraries.png" alt="Software libraries and drivers excerpt" loading="lazy"></a><figcaption>Team design artifact</figcaption></figure>
+<p><a href="assets/postpartum/software_libraries.xlsx">Software inventory workbook</a></p>
+<h3>Sensor comparison</h3>
+<figure class="case-picture "><a href="assets/postpartum/air_quality_sensor_matrix.png" aria-label="Open full-size image: Air-quality sensor comparison"><img src="assets/postpartum/air_quality_sensor_matrix.png" alt="Air-quality sensor comparison" loading="lazy"></a><figcaption>Team design artifact</figcaption></figure>
+<p><a href="assets/postpartum/design_matrices.xlsx">Design matrices</a> · <a href="assets/postpartum/topology_mqtt.drawio">Editable system topology</a> · <a href="assets/postpartum/pico_wiring_pm_mq135.drawio">PM/gas wiring diagram</a></p>
+<p>The trade studies and diagrams record the team&#39;s design work. The linked branch is the reference for the PM/gas receiver&#39;s implemented behavior.</p>
+</div></details></section></div></div>
+<section class="next-project shell"><p class="eyebrow">Next project</p><a href="stm32_freertos.html"><h2>STM32 firmware & motor control</h2><span aria-hidden="true">↗</span></a><p>PCB layout, board bring-up, C drivers, and FreeRTOS motor control.</p></section>

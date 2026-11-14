@@ -1,77 +1,25 @@
 ---
-title: Tianyi He
-description: Embedded firmware, hardware bring-up, and sensor systems
+layout: portfolio
+title: Embedded systems portfolio
+description: C firmware, hardware bring-up, and sensor systems. Selected engineering projects by Tianyi He, CMU M.S. ECE.
 home: true
 ---
 
-<div class="intro" markdown="1">
-I am an M.S. student in Electrical and Computer Engineering at Carnegie Mellon, completing my program in **May 2027**. I work mainly in **C**, with Python for testing and data collection.
-
-I like working on problems where building a useful physical system can make a real difference. These pages explain what I contributed, how I tested it, and what still needs work.
-</div>
-
-<section class="project-list" aria-labelledby="selected-projects">
-  <h2 id="selected-projects">Selected projects</h2>
-
-  <article class="project">
-    <div class="project-summary">
-      <h3><a href="esab.html">Medical-gas pipeline monitoring</a></h3>
-      <p class="project-tools">Sensor systems · Requirements and design · Hardware testing</p>
-      <p>Research with CMU’s Biorobotics Lab and ESAB. I contribute to firmware, sensor evaluation, board design, and a medical-gas testbed; the project page is a high-level summary because the implementation is confidential.</p>
-    </div>
-  </article>
-
-  <article class="project">
-    <div class="project-summary">
-      <h3><a href="resp_ecmo_monitoring.html">TeleLine: gas-flow sensing and data acquisition</a></h3>
-      <p class="project-tools">C · PSoC 5LP · USB serial · Python · Bench testing</p>
-      <p>I replaced delay loops with hardware timers and built telemetry and test tools to make sampling more repeatable. The project page connects those changes to timing checks and reference-instrument testing.</p>
-    </div>
-  </article>
-
-  <article class="project project-with-preview">
-    <div class="project-summary">
-      <h3><a href="stm32_freertos.html">STM32 firmware, PCB bring-up, and motor control</a></h3>
-      <p class="project-tools">C · Device drivers · PCB layout · FreeRTOS</p>
-      <p>I laid out and brought up a board from a course-provided schematic, then wrote its bare-metal and RTOS firmware. A motor controller brought the drivers, encoder feedback, and task timing together.</p>
-    </div>
-    <figure class="project-preview">
-      <a href="stm32_freertos.html" aria-label="Read the STM32 motor-control project">
-        <img src="assets/stm32/control-loop.svg" alt="Encoder feedback feeds a FreeRTOS PID task, which drives the motor through PWM." width="420" height="340" loading="lazy">
-      </a>
-      <figcaption>Motor-control loop</figcaption>
-    </figure>
-  </article>
-
-  <article class="project">
-    <div class="project-summary">
-      <h3><a href="embedded_real_time_systems.html">Embedded Linux and real-time scheduling</a></h3>
-      <p class="project-tools">C · Linux kernel modules · System calls · Execution tracing</p>
-      <p>I built applications and kernel components on Raspberry Pi 4 for periodic-task monitoring and scheduling experiments, then used execution traces to investigate their behavior.</p>
-    </div>
-  </article>
-
-  <article class="project project-with-preview">
-    <div class="project-summary">
-      <h3><a href="glove.html">Gesture-classification glove</a></h3>
-      <p class="project-tools">C · ESP32-S3 · EMG and motion sensors · Edge Impulse</p>
-      <p>Our team built a wearable prototype that recognizes a small set of gestures on the device. I contributed firmware, sensor integration, data collection, model training, and deployment.</p>
-    </div>
-    <figure class="project-preview glove-preview">
-      <a href="glove.html" aria-label="Read the gesture-classification glove project">
-        <img src="assets/glove/class-prototype.jpeg" alt="The class prototype worn on a hand, with flex sensors, wiring, and breadboards attached to the glove." width="688" height="914" loading="lazy">
-      </a>
-      <figcaption>Our class-demo prototype</figcaption>
-    </figure>
-  </article>
-
-  <article class="project">
-    <div class="project-summary">
-      <h3><a href="postpartum_health.html">Environmental sensing for a home-health prototype</a></h3>
-      <p class="project-tools">Python · Raspberry Pi · Wi-Fi and HTTP · AWS DynamoDB</p>
-      <p>Our team used decision matrices to compare controllers, sensors, and communication options. I worked on environmental hardware and firmware, including the Pi receiver and cloud-logging path.</p>
-    </div>
-  </article>
+<section class="hero shell">
+<div class="hero-copy"><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span>Tianyi He / Embedded systems</p><h1>Embedded firmware<br>&amp; hardware bring-up</h1><p class="hero-description">I work mainly in C, developing device drivers, integrating sensors, and testing hardware and firmware together.</p><div class="hero-actions"><a class="button primary" href="#projects">View projects <span aria-hidden="true">↓</span></a><a class="text-link" href="https://github.com/TianyiHe74">GitHub <span aria-hidden="true">↗</span></a></div><p class="hero-footnote">Carnegie Mellon University <span aria-hidden="true">/</span> M.S. ECE · May 2027</p></div>
+<figure class="hero-figure"><div class="figure-topline"><span>Featured project</span><span>01 / STM32</span></div><img src="assets/stm32/control-study.svg" width="540" height="340" alt="Conceptual motor-control loop: encoder feedback flows into a FreeRTOS PID task, which commands the motor through PWM."><figcaption><span>STM32 motor control</span><a href="stm32_freertos.html">View project <span aria-hidden="true">↗</span></a></figcaption></figure>
 </section>
+<div class="focus-strip shell" aria-label="Engineering focus"><span>FIRMWARE IN C</span><span>MCU / RTOS</span><span>HARDWARE BRING-UP</span><span>MEASUREMENT & TESTING</span></div>
 
-<p class="sharing-note">Team contributions and sharing limits are identified on each project page.</p>
+<section class="work-section shell" id="projects" aria-labelledby="work-title">
+<span id="selected-projects" aria-hidden="true"></span>
+<div class="section-heading"><div><h2 id="work-title">Selected projects</h2></div><p>My contributions, implementation details,<br>and how I tested the work.</p></div>
+<article class="feature-project"><div class="feature-visual" aria-label="STM32 control-loop implementation summary"><span class="eyebrow">Firmware + hardware</span><div class="large-stat">15<span>ms</span></div><p>Configured PID control period</p><div class="signal-chain"><span>Encoder</span><i aria-hidden="true">→</i><span>PID</span><i aria-hidden="true">→</i><span>Motor</span></div><div class="visual-bottom"><span>STM32 / FreeRTOS</span><span>Position control</span></div></div><div class="feature-copy"><p class="eyebrow project-index">01 / Embedded control</p><h3><a href="stm32_freertos.html">STM32 firmware<br>&amp; motor control</a></h3><p>I laid out and brought up an STM32 board, then wrote the drivers and FreeRTOS firmware that connected encoder feedback to motor control.</p><div class="tags"><span>C</span><span>PCB layout</span><span>FreeRTOS</span><span>Device drivers</span></div><a class="text-link" href="stm32_freertos.html">View project <span aria-hidden="true">↗</span></a></div></article>
+<div class="project-pair"><article class="secondary-project"><div class="project-card-top"><p class="eyebrow">02 / Sensing & acquisition</p><span class="small-symbol" aria-hidden="true">↔</span></div><h3><a href="resp_ecmo_monitoring.html">TeleLine</a></h3><p class="project-subtitle">Gas-flow sensing & data acquisition</p><p>I replaced delay loops with hardware timers and built telemetry and test tools to make sampling more repeatable.</p><div class="mini-path" aria-label="TeleLine technologies"><span>PSoC 5LP</span><span aria-hidden="true">→</span><span>USB serial</span><span aria-hidden="true">→</span><span>Python</span></div><a class="text-link" href="resp_ecmo_monitoring.html">View project <span aria-hidden="true">↗</span></a></article>
+<article class="secondary-project research-project"><div class="project-card-top"><p class="eyebrow">03 / Research</p><span class="small-symbol" aria-hidden="true">◎</span></div><h3><a href="esab.html">Medical-gas monitoring</a></h3><p class="project-subtitle">CMU Biorobotics Lab × ESAB</p><p>I contributed to firmware, sensor evaluation, board design, and a medical-gas testbed.</p><p class="disclosure">Public project summary. Implementation details are confidential.</p><a class="text-link" href="esab.html">View research summary <span aria-hidden="true">↗</span></a></article></div>
+</section>
+<section class="more-work shell" aria-labelledby="more-title"><div class="section-heading compact"><h2 id="more-title">Other projects</h2></div>
+<a class="project-row" href="embedded_real_time_systems.html"><span class="row-number">04</span><div><h3>Embedded Linux & real-time scheduling</h3><p>Kernel modules, system calls, and execution traces on Raspberry Pi 4.</p></div><span class="row-tag">Systems</span><span class="row-arrow" aria-hidden="true">↗</span></a>
+<a class="project-row" href="glove.html"><span class="row-number">05</span><div><h3>Gesture-classification glove</h3><p>Firmware, sensor integration, and on-device inference for a team prototype.</p></div><img class="row-photo" src="assets/glove/class-prototype.jpeg" alt="Our wearable class prototype, with sensors and wiring attached to a glove." width="688" height="914" loading="lazy"><span class="row-arrow" aria-hidden="true">↗</span></a>
+<a class="project-row" href="postpartum_health.html"><span class="row-number">06</span><div><h3>Environmental sensing for home health</h3><p>Controller and sensor tradeoffs, environmental firmware, and cloud logging.</p></div><span class="row-tag">Prototyping</span><span class="row-arrow" aria-hidden="true">↗</span></a></section>
+<section class="about-section shell" id="about" aria-labelledby="about-title"><div><h2 id="about-title">About me</h2></div><div><p>I’m an M.S. student in Electrical and Computer Engineering at Carnegie Mellon, completing my program in May 2027. I mainly work in C and Python.</p><p>I like working on problems where building a useful physical system can make a real difference. Here, I explain what I contributed, how I tested it, and what still needs work.</p><a class="text-link" href="mailto:hetianyi74@gmail.com">Contact me <span aria-hidden="true">↗</span></a></div></section>

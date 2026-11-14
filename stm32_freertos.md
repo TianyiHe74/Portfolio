@@ -1,84 +1,22 @@
 ---
-title: STM32 firmware and FreeRTOS motor control
-description: Device drivers, PCB bring-up, and a real-time control loop
+layout: portfolio
+title: STM32 firmware & motor control
+description: PCB layout, board bring-up, C drivers, and a FreeRTOS motor position controller. An implementation case study by Tianyi He.
 ---
 
-[All projects](./)
-
-In CMU's Introduction to Embedded Systems course (18-349), I built bare-metal and FreeRTOS firmware in C for an STM32 board. Lab 6 brought the drivers together in a motor position controller with a quadrature encoder, a **15 ms PID control loop**, and keypad/LCD tuning.
-
-Course solution code is not distributed here. The hardware kit was returned, so the diagrams and implementation summary below are the available project artifacts.
-
-## Board and driver work
-
-I captured the course-provided schematic and designed the PCB layout myself, then assembled, debugged, and brought up the board using an oscilloscope, multimeter, and bench power supply. The underlying circuit was provided by the course; my design contribution was the layout.
-
-I wrote C drivers for EXTI, timers and PWM, UART, I²C, and ADC to support the keypad, LCD, servo, encoder, and DC motor. The motor-control example below shows how those pieces worked together.
-
----
-
-## System architecture
-![System block diagram](assets/stm32/system_block_diagram.png)
-
-### Hardware / IO (from implementation)
-- **MCU:** STM32 (Cortex‑M) running **FreeRTOS**
-- **Actuation:** DC motor controlled via PWM + direction pins (IN1/IN2)
-- **Sensing:** quadrature encoder decoded via EXTI ISR
-- **User input:** push buttons for setpoint step, keypad + LCD for tuning
-- **Debug:** UART @ **115200** baud
-
----
-
-## FreeRTOS design (tasks + timing)
-![FreeRTOS task breakdown](assets/stm32/rtos_task_breakdown.png)
-
-**Tasks created (from `lab6_main`)**
-- `PIDControl` — main control loop task  
-- `pid` — tune P/I/D gains from keypad; show summary on LCD  
-- `changeSetpoint` — adjust setpoint via buttons  
-- `ledToggle` — heartbeat LED  
-- `servoTask` — periodic servo movement (test/demo support)
-
-**Key timing parameters**
-- PID sample time: **15 ms** (`PID_SAMPLE_TIME_MS = 15`)
-- Heartbeat LED: **250 ms**
-- Button polling: **200 ms**
-- LCD refresh: **1000 ms**
-
----
-
-## Control loop details
-The PID loop reads the encoder position and computes a drive command with configured duty-cycle bounds. Those bounds limit the commanded output; they are not evidence of a validated motor-protection system.
-
-**What I implemented**
-- **Encoder position** tracked modulo **1200 ticks/rev**
-- **Shortest-path error** with wrap-around handling (so error doesn’t “jump” across 0/rev boundary)
-- Output clamping (duty cycle bounds):
-  - `MIN_MOTOR_SPEED = 14`
-  - `MAX_MOTOR_SPEED = 90`
-- “Close enough” stop condition (deadband): if `|error| <= 30` ticks, motor stops
-
-**Setpoint stepping**
-- Buttons step setpoint by **±200 ticks** (≈ 60° per step if 1200 ticks/rev)
-
----
-
-## Interactive tuning (keypad + LCD)
-I implemented a small UI loop to tune PID gains live:
-- Prompt for **P**, **I**, **D** sequentially on LCD
-- Read digits from keypad
-- Update shared gain variables inside critical sections
-- Display a summary line with the current tuned values
-
-This makes iteration fast: tune → observe response → tune again, without rebuilding firmware.
-
----
-
-## What I’d improve next
-- Move PID timing to a periodic timer/notification (avoid delays *inside* the PID update function)
-- Add a simple serial “telemetry frame” (position, setpoint, drive) to plot step response quickly
-- Add explicit anti-windup strategy tied to output saturation
-
----
-
-The 15 ms value is the configured control period. No measured jitter or step-response dataset is published on this page.
+<div class="shell"><a class="back-link" href="index.html#projects"><span aria-hidden="true">←</span> All projects</a></div>
+<section class="case-hero shell"><p class="eyebrow">Case study 01 / Embedded control</p><h1>STM32 firmware<br>&amp; motor control</h1><p class="case-intro">I designed the PCB layout from a course-provided schematic, brought up the board, and wrote C drivers and FreeRTOS firmware for a motor position controller.</p><div class="tags"><span>STM32 / Cortex-M</span><span>C</span><span>FreeRTOS</span><span>PCB bring-up</span></div></section>
+<section class="case-overview shell" aria-label="Project at a glance"><div><p class="eyebrow">Context</p><p>CMU · 18-349<br>Introduction to Embedded Systems</p></div><div><p class="eyebrow">My contribution</p><p>PCB layout & bring-up<br>Device drivers & control firmware</p></div><div><p class="eyebrow">Scope</p><p>Course-provided circuit<br>Individual implementation work</p></div></section>
+<section class="loop-section shell" aria-labelledby="loop-title"><div class="loop-heading"><div><h2 id="loop-title">Motor-control loop</h2></div><p>Lab 6 brought the drivers together in a motor position controller, with encoder feedback and keypad/LCD tuning.</p></div>
+<div class="loop-explorer"><div class="loop-diagram"><img src="assets/stm32/control-study.svg" width="540" height="340" alt="Encoder feedback enters a FreeRTOS PID task. The task sends PWM commands to the motor. Motor position returns through the encoder."><p>Implementation overview · not a measured response plot</p></div><div class="explorer-detail"><p class="eyebrow">Control-loop stages</p><div class="loop-tabs" role="tablist" aria-label="Control-loop stages"><button id="tab-feedback" role="tab" aria-selected="true" aria-controls="panel-feedback" data-stage="feedback">01 Feedback</button><button id="tab-control" role="tab" aria-selected="false" aria-controls="panel-control" data-stage="control" tabindex="-1">02 Control</button><button id="tab-drive" role="tab" aria-selected="false" aria-controls="panel-drive" data-stage="drive" tabindex="-1">03 Drive</button></div>
+<div id="panel-feedback" class="stage-panel" role="tabpanel" aria-labelledby="tab-feedback" tabindex="0"><h3>Encoder feedback</h3><p>An EXTI interrupt handler decodes the quadrature encoder and tracks position modulo 1,200 ticks per revolution.</p><p>The controller uses shortest-path error with wrap-around handling, so crossing the zero boundary doesn’t produce a large position-error jump.</p><span class="detail-label">Encoder → EXTI ISR → Position</span></div>
+<div id="panel-control" class="stage-panel" role="tabpanel" aria-labelledby="tab-control" tabindex="0" hidden><h3>PID control</h3><p>The FreeRTOS PID task reads encoder position and computes a drive command. Its configured sample time is 15 ms.</p><p>Buttons step the setpoint by ±200 ticks, about 60° per step. The keypad and LCD let me tune P, I, and D without rebuilding the firmware.</p><span class="detail-label">Setpoint − Position → PID</span></div>
+<div id="panel-drive" class="stage-panel" role="tabpanel" aria-labelledby="tab-drive" tabindex="0" hidden><h3>Motor output</h3><p>PWM and direction pins (IN1/IN2) command the DC motor. The configured duty-cycle bounds are 14–90, and the motor stops when the absolute error is at most 30 ticks.</p><p>These are command limits and a deadband. They are not evidence of a validated motor-protection system.</p><span class="detail-label">PID output → PWM + Direction → Motor</span></div>
+</div></div><div class="metrics"><div><strong>15 <span>ms</span></strong><p>Configured PID period</p></div><div><strong>1,200</strong><p>Encoder ticks / revolution</p></div><div><strong>±200 <span>ticks</span></strong><p>Setpoint step · ≈ 60°</p></div><div><strong>5</strong><p>FreeRTOS tasks</p></div></div></section>
+<div class="case-body shell"><aside class="case-nav" aria-label="On this page"><p class="eyebrow">In this case study</p><a href="#hardware">01 / Hardware & drivers</a><a href="#timing">02 / Tasks & timing</a><a href="#tuning">03 / Tuning the loop</a><a href="#evidence">04 / Evidence & next steps</a></aside><div class="case-sections">
+<section id="hardware"><p class="eyebrow">01 / Hardware & drivers</p><h2>PCB layout and board bring-up</h2><p>I captured the course-provided schematic and designed the PCB layout myself. I then assembled, debugged, and brought up the board using an oscilloscope, multimeter, and bench power supply.</p><p>The underlying circuit was provided by the course. My hardware design contribution was the layout.</p><p>I wrote C drivers for EXTI, timers and PWM, UART, I²C, and ADC to support the keypad, LCD, servo, encoder, and DC motor. UART debugging ran at 115,200 baud.</p><details class="artifact"><summary>View the original system block diagram <span aria-hidden="true">+</span></summary><figure><img src="assets/stm32/system_block_diagram.png" alt="Original system block diagram showing the STM32, motor, encoder, input controls, and display." loading="lazy"><figcaption>Existing project artifact · system architecture</figcaption></figure></details></section>
+<section id="timing"><p class="eyebrow">02 / Tasks & timing</p><h2>FreeRTOS tasks and timing</h2><p>The firmware splits motor control, gain tuning, setpoint changes, and test/demo functions into separate FreeRTOS tasks.</p><div class="table-scroll"><table><caption>Tasks created in <code>lab6_main</code></caption><thead><tr><th scope="col">Task</th><th scope="col">Responsibility</th><th scope="col">Configured interval</th></tr></thead><tbody><tr><th scope="row"><code>PIDControl</code></th><td>Main motor-control loop</td><td>15 ms sample time</td></tr><tr><th scope="row"><code>pid</code></th><td>Keypad gain tuning & LCD</td><td>1,000 ms LCD refresh</td></tr><tr><th scope="row"><code>changeSetpoint</code></th><td>Button-driven setpoint changes</td><td>200 ms polling</td></tr><tr><th scope="row"><code>ledToggle</code></th><td>Heartbeat LED</td><td>250 ms</td></tr><tr><th scope="row"><code>servoTask</code></th><td>Periodic servo test/demo</td><td>Not specified here</td></tr></tbody></table></div><p class="note">These are configuration values. No measured jitter or step-response dataset is published here.</p><details class="artifact"><summary>View the original task breakdown <span aria-hidden="true">+</span></summary><figure><img src="assets/stm32/rtos_task_breakdown.png" alt="Original FreeRTOS task-breakdown diagram for the motor-control implementation." loading="lazy"><figcaption>Existing project artifact · FreeRTOS tasks</figcaption></figure></details></section>
+<section id="tuning"><p class="eyebrow">03 / Tuning the loop</p><h2>PID tuning with a keypad and LCD</h2><p>I implemented a keypad/LCD interface that prompts for P, I, and D in sequence. It reads digits from the keypad, updates shared gain variables inside critical sections, and displays the current values.</p><p>This made it possible to tune, observe the motor response, and tune again without rebuilding the firmware.</p><div class="tuning-path" aria-label="Tuning process"><span>Enter gains</span><i aria-hidden="true">→</i><span>Observe response</span><i aria-hidden="true">→</i><span>Adjust</span></div><div class="implementation-note"><h3>Wrap-around, output limits, and deadband</h3><p>Position wraps at 1,200 ticks. Shortest-path error handles that boundary, output clamping limits the command, and a 30-tick deadband stops the motor near the target.</p><div class="code-values"><code>MIN_MOTOR_SPEED = 14</code><code>MAX_MOTOR_SPEED = 90</code><code>|error| ≤ 30 → stop</code></div></div></section>
+<section id="evidence"><p class="eyebrow">04 / Evidence & next steps</p><h2>Limitations and next steps</h2><p>The available artifacts are the implementation summary and diagrams. The hardware kit was returned, and course solution code is not distributed here.</p><div class="evidence-note"><span class="eyebrow">Timing measurements</span><p>The 15 ms period describes the configuration. It does not establish measured timing precision or control performance.</p></div><ol class="next-steps"><li><h3>Periodic control timing</h3><p>Move PID timing to a periodic timer or notification, avoiding delays inside the PID update function.</p></li><li><h3>Serial telemetry</h3><p>Add a serial telemetry frame with position, setpoint, and drive command to plot step responses.</p></li><li><h3>Anti-windup</h3><p>Add an anti-windup strategy tied to output saturation.</p></li></ol><p class="note">These are proposed improvements, not completed features.</p></section>
+</div></div>
+<section class="next-project shell"><p class="eyebrow">Next project / Sensing & acquisition</p><a href="resp_ecmo_monitoring.html"><h2>TeleLine: gas-flow sensing<br>& data acquisition</h2><span aria-hidden="true">↗</span></a><p>Timer-driven sampling, telemetry, and reference-instrument testing.</p></section>

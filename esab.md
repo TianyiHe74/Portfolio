@@ -1,24 +1,21 @@
 ---
+layout: portfolio
 title: Medical-gas pipeline monitoring
-description: Embedded systems research with CMU's Biorobotics Lab and ESAB
+description: A public summary of firmware, sensor evaluation, PCB design, and testbed work with CMU Biorobotics and ESAB.
 ---
 
-[All projects](./)
-
-What draws me to this project is the chance to build something from zero to one: giving hospitals more visibility into what is happening throughout their medical-gas pipelines. The goal goes beyond reducing waste and cost. Better visibility could help identify dangerous supply problems and potentially save lives.
-
-## My contribution
-
-My work spans embedded firmware, sensor evaluation, PCB design, and testing. I contribute C firmware for sensor acquisition and communications, help define requirements and interfaces with the team, and support board bring-up. I also designed and assembled a sensor testbed, selected and procured components, and documented design decisions and test results.
-
-I held a full-time internship with the Biorobotics Lab from May through August 2026. The broader academic project is ongoing.
-
-## How I approach the work
-
-This project has made me take requirements and design more seriously. Defining interfaces, expected behavior, and test criteria is worth spending time on. For a relatively quick prototype, it is also important to identify what needs to be resolved now and what can wait until there is more evidence.
-
-I use component research, trade studies, and measurements to support those decisions. When debugging, I work through possible causes at the hardware and firmware levels, using each check to decide what to investigate next.
-
-## Public scope
-
-This is a research prototype. The potential patient-safety benefit is a motivation for the work, not a measured clinical outcome. This page intentionally stays at a high level; code, schematics, detailed test results, and partner documents are confidential.
+<div class="shell"><a class="back-link" href="index.html#projects"><span aria-hidden="true">←</span> All projects</a></div>
+<section class="case-hero shell "><div><p class="eyebrow">Case study 03 / Research</p><h1>Medical-gas<br>pipeline monitoring</h1><p class="case-intro">I work on embedded firmware, sensor evaluation, PCB design, and testing for a medical-gas monitoring research prototype with CMU’s Biorobotics Lab and ESAB.</p><div class="tags"><span>C firmware</span><span>Sensor evaluation</span><span>PCB design</span><span>Hardware testing</span></div></div></section>
+<section class="case-overview shell" aria-label="Project at a glance"><div><p class="eyebrow">Context</p><p>CMU Biorobotics Lab × ESAB</p></div><div><p class="eyebrow">Internship</p><p>Full-time · May–August 2026<br>Broader academic project ongoing</p></div><div><p class="eyebrow">Public scope</p><p>High-level research summary<br>Implementation and data are confidential</p></div></section>
+<section class="project-overview shell" aria-labelledby="research-scope"><div class="section-heading"><div><p class="eyebrow">Areas of contribution</p><h2 id="research-scope">Firmware, hardware, and testing</h2></div></div><div class="scope-grid"><article><span class="scope-number">01</span><h3>Sensor firmware</h3><p>C firmware for acquisition and communications, with team-defined requirements and interfaces.</p></article><article><span class="scope-number">02</span><h3>Hardware integration</h3><p>Sensor evaluation, PCB design, component selection, and board bring-up.</p></article><article><span class="scope-number">03</span><h3>Testbed development</h3><p>Designing and assembling a sensor testbed and documenting decisions and test results.</p></article></div></section>
+<div class="case-body shell"><aside class="case-nav" aria-label="On this page"><p class="eyebrow">In this case study</p><a href="#project-goal">01 / Project goal</a><a href="#section-1">02 / My contribution</a><a href="#section-2">03 / Requirements and debugging</a><a href="#section-3">04 / Public scope</a></aside><div class="case-sections"><section id="project-goal"><p class="eyebrow">01 / Research</p><h2>Project goal</h2><p>What draws me to this project is the chance to build something from zero to one: giving hospitals more visibility into what is happening throughout their medical-gas pipelines. The goal goes beyond reducing waste and cost. Better visibility could help identify dangerous supply problems and potentially save lives.</p>
+</section>
+<section id="section-1"><p class="eyebrow">02 / Research</p><h2>My contribution</h2><p>My work spans embedded firmware, sensor evaluation, PCB design, and testing. I contribute C firmware for sensor acquisition and communications, help define requirements and interfaces with the team, and support board bring-up. I also designed and assembled a sensor testbed, selected and procured components, and documented design decisions and test results.</p>
+<p>I held a full-time internship with the Biorobotics Lab from May through August 2026. The broader academic project is ongoing.</p>
+</section>
+<section id="section-2"><p class="eyebrow">03 / Research</p><h2>Requirements and debugging</h2><p>This project has made me take requirements and design more seriously. Defining interfaces, expected behavior, and test criteria is worth spending time on. For a relatively quick prototype, it is also important to identify what needs to be resolved now and what can wait until there is more evidence.</p>
+<p>I use component research, trade studies, and measurements to support those decisions. When debugging, I work through possible causes at the hardware and firmware levels, using each check to decide what to investigate next.</p>
+</section>
+<section id="section-3"><p class="eyebrow">04 / Research</p><h2>Public scope</h2><p>This is a research prototype. The potential patient-safety benefit is a motivation for the work, not a measured clinical outcome. This page intentionally stays at a high level; code, schematics, detailed test results, and partner documents are confidential.</p>
+</section></div></div>
+<section class="next-project shell"><p class="eyebrow">Next project</p><a href="embedded_real_time_systems.html"><h2>Embedded Linux & real-time scheduling</h2><span aria-hidden="true">↗</span></a><p>C applications, kernel components, and execution tracing on Raspberry Pi 4.</p></section>
