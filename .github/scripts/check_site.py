@@ -31,7 +31,7 @@ class Page(HTMLParser):
 
 root = Path(sys.argv[1]).resolve()
 names = [
-    "index", "stm32_freertos", "resp_ecmo_monitoring", "esab",
+    "index", "automotive_can", "stm32_freertos", "resp_ecmo_monitoring", "esab",
     "embedded_real_time_systems", "glove", "postpartum_health",
 ]
 pages = {}

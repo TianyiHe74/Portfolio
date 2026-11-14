@@ -6,6 +6,8 @@ I am a Carnegie Mellon M.S. ECE student completing my program in May 2027. My fo
 
 ## Projects
 
+- [Automotive drive-by-wire](https://tianyihe74.github.io/Portfolio/automotive_can.html): STM32/Zephyr integration, dual-CAN fault diagnosis, four-layer PCB design and replicated-log verification.
+
 - [ESAB medical-gas monitoring](https://tianyihe74.github.io/Portfolio/esab.html): high-level research summary; implementation and data are confidential.
 - [TeleLine gas-flow sensing](https://tianyihe74.github.io/Portfolio/resp_ecmo_monitoring.html): timer-driven acquisition, binary USB telemetry, and reference-instrument testing.
 - [STM32 and FreeRTOS](https://tianyihe74.github.io/Portfolio/stm32_freertos.html): PCB layout and bring-up, device drivers, and motor control.
